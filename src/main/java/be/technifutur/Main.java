@@ -1,7 +1,19 @@
 package be.technifutur;
 
+import common.Saisir;
+
 public class Main {
     public static void main(String... args){
-        System.out.println("Hello world");
+        Saisir.openScanner();
+
+        System.out.println("Type hello");
+        String hello = Saisir.scanString();
+
+        System.out.println("Type world");
+        String world = Saisir.scanString();
+
+        System.out.println("%s %s".formatted(hello,world));
+
+        Saisir.closeScanner();
     }
 }

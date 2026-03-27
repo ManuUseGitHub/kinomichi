@@ -1,5 +1,6 @@
 package be.technifutur;
 
+import be.technifutur.C.Kinomichi;
 import store.luniversdemm.common.Saisir;
 
 public class Main {
@@ -14,16 +15,14 @@ public class Main {
                 V %s \n
                 """,Constants.VERSION);
 
-        Saisir.openScanner();
+        try{
+            Saisir.openScanner();
+            Kinomichi prog = new Kinomichi();
+            String choix = "1";
 
-        System.out.println("Type hello");
-        String hello = Saisir.scanString();
-
-        System.out.println("Type world");
-        String world = Saisir.scanString();
-
-        System.out.println("%s %s".formatted(hello,world));
-
-        Saisir.closeScanner();
+            prog.request(1);
+        }finally {
+            Saisir.closeScanner();
+        }
     }
 }

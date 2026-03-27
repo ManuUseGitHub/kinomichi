@@ -1,7 +1,7 @@
 package be.technifutur.M;
 
 public class RequestTranslator {
-    public static long translate(String data){
-        return 0;
+    public long translate(String data){
+        return new Long(data);
     }
 }

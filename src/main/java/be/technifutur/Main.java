@@ -1,6 +1,6 @@
 package be.technifutur;
 
-import common.Saisir;
+import store.luniversdemm.common.Saisir;
 
 public class Main {
     static void main(String... args){
@@ -12,7 +12,6 @@ public class Main {
                 |____|__ \\__|___|  /\\____/|__|_|  /__|\\___  >___|  /__|\s
                         \\/       \\/             \\/        \\/     \\/    \s
                 V %s \n
-                
                 """,Constants.VERSION);
 
         Saisir.openScanner();

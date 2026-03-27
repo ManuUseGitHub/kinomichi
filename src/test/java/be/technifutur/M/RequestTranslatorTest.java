@@ -20,4 +20,11 @@ public class RequestTranslatorTest {
         var result = req.translate(String.valueOf(choice));
         Assertions.assertEquals(choice, result);
     }
+
+    @Test
+    void testSelectingQuitReturnQuitCommand() {
+        RequestTranslator req = new RequestTranslator();
+        var result = req.translate(":q");
+        Assertions.assertEquals(-999, result);
+    }
 }

@@ -11,7 +11,7 @@ public final class MenuA extends Menu implements HasMenuItems {
     private Stream<String> items;
 
     public MenuA() {
-        this.name = "Menu A";
+        this.name = "Menu Principal";
         this.items = Arrays.stream(new String[]{
                 "Gestion des plages",
                 "Gestion des participants",

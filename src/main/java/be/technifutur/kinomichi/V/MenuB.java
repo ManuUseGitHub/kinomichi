@@ -10,7 +10,7 @@ public final class MenuB extends Menu implements HasMenuItems {
         super("Gestion des plages", Arrays.stream(new String[]{
                 "Ajout de plages",
                 "Suppression de plages",
-                "Modification de plages",
+                "Modification d'une plage",
                 "Listing des plages"
         }));
     }

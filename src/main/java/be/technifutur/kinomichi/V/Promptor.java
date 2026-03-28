@@ -26,11 +26,22 @@ public class Promptor {
     }
 
     public static void getMenu(){
-        if("a".equals(engine.getCurrentState().getValue())){
-            System.out.println(new MenuA());
-        }else if("b".equals(engine.getCurrentState().getValue())){
-            System.out.println(new MenuB());
-        }
+        System.out.println(switch (engine.getCurrentState()){
+            case MAIN_MENU -> new MenuA();
+            case PLAGE_MANAGEMENT -> new MenuB();
+            case PLAGE_ADDING -> null;
+            case PLAGE_DELETING -> null;
+            case PLAGE_EDIT -> null;
+            case PLAGE_LISTING -> null;
+
+            case PEOPLE_MANAGEMENT -> new MenuC();
+            case PEOPLE_ADDING -> null;
+            case PEOPLE_DELETING -> null;
+            case PEOPLE_EDIT -> null;
+            case PEOPLE_LISTING -> null;
+
+            case ADMIN_MANAGEMENT -> new MenuD();
+        });
     }
 
     public static void askWhatDo(){

@@ -6,7 +6,7 @@ import java.util.Arrays;
 
 public final class MenuA extends Menu implements HasMenuItems {
     public MenuA() {
-        super("Menu Principal", Arrays.stream(new String[]{
+        super("Menu principal", Arrays.stream(new String[]{
                 "Gestion des plages",
                 "Gestion des participants",
                 "Administration des données"

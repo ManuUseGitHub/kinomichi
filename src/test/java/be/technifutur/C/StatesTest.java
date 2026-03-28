@@ -1,4 +1,4 @@
-package be.technifutur.M;
+package be.technifutur.C;
 
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
@@ -36,6 +36,4 @@ public class StatesTest {
         States state = States.get(value);
         Assertions.assertEquals(expected,state);
     }
-
-
 }

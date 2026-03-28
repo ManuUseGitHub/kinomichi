@@ -1,4 +1,4 @@
-package be.technifutur.M;
+package be.technifutur.C;
 
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;

@@ -1,4 +1,4 @@
-package be.technifutur.M;
+package be.technifutur.C;
 
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;

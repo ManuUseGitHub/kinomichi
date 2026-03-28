@@ -1,8 +1,5 @@
 package be.technifutur.C;
 
-import be.technifutur.M.RequestTranslator;
-import be.technifutur.M.StateEngine;
-import be.technifutur.M.States;
 import be.technifutur.V.Promptor;
 import store.luniversdemm.common.Saisir;
 

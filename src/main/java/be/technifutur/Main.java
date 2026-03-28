@@ -11,8 +11,7 @@ public class Main {
 
         try{
             Saisir.openScanner();
-            Kinomichi prog = new Kinomichi();
-            prog.run();
+            new Kinomichi().run();
         }finally {
             Saisir.closeScanner();
         }

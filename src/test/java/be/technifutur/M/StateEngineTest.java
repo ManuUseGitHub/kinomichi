@@ -15,7 +15,7 @@ class StateEngineTest {
     public void theCreationOfInstanceInitiatesAState(){
         StateEngine engine = new StateEngine(States.MAIN_MENU);
 
-        assertEquals("a",engine.getCurrentState());
+        assertEquals("a",engine.getCurrentState().getValue());
     }
 
     @Test
@@ -23,7 +23,7 @@ class StateEngineTest {
         StateEngine engine = new StateEngine(States.MAIN_MENU);
         engine.apply(1);
 
-        assertEquals("b",engine.getCurrentState());
+        assertEquals("b",engine.getCurrentState().getValue());
     }
 
     static List<Arguments> actionsForNavigation(){
@@ -40,7 +40,7 @@ class StateEngineTest {
         StateEngine engine = new StateEngine(States.MAIN_MENU);
         engine.apply(entry);
 
-        assertEquals(state.getValue(),engine.getCurrentState());
+        assertEquals(state.getValue(),engine.getCurrentState().getValue());
     }
 
     @Test
@@ -48,6 +48,6 @@ class StateEngineTest {
         StateEngine engine = new StateEngine(States.MAIN_MENU);
         engine.apply(Integer.MAX_VALUE);
 
-        assertEquals("a",engine.getCurrentState());
+        assertEquals("a",engine.getCurrentState().getValue());
     }
 }

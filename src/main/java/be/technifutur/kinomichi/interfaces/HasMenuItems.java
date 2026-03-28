@@ -1,4 +1,4 @@
-package be.technifutur.interfaces;
+package be.technifutur.kinomichi.interfaces;
 
 import java.util.stream.Stream;
 

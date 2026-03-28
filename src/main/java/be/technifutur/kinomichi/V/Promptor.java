@@ -1,6 +1,6 @@
-package be.technifutur.V;
+package be.technifutur.kinomichi.V;
 
-import be.technifutur.Constants;
+import be.technifutur.kinomichi.Constants;
 
 public class Promptor {
     public static void getTitle(){

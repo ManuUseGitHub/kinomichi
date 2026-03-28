@@ -1,4 +1,4 @@
-package be.technifutur.C;
+package be.technifutur.kinomichi.C;
 
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;

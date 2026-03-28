@@ -1,6 +1,6 @@
-package be.technifutur.V;
+package be.technifutur.kinomichi.V;
 
-import be.technifutur.interfaces.HasMenuItems;
+import be.technifutur.kinomichi.interfaces.HasMenuItems;
 
 public abstract class Menu implements HasMenuItems {
     protected String name;

@@ -1,6 +1,6 @@
-package be.technifutur.C;
+package be.technifutur.kinomichi.C;
 
-import be.technifutur.V.Promptor;
+import be.technifutur.kinomichi.V.Promptor;
 import store.luniversdemm.common.Saisir;
 
 public class Kinomichi extends Agent {

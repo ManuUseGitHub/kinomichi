@@ -1,4 +1,4 @@
-package be.technifutur.C;
+package be.technifutur.kinomichi.C;
 
 import java.util.regex.Pattern;
 

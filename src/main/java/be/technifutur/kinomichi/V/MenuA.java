@@ -1,6 +1,6 @@
-package be.technifutur.V;
+package be.technifutur.kinomichi.V;
 
-import be.technifutur.interfaces.HasMenuItems;
+import be.technifutur.kinomichi.interfaces.HasMenuItems;
 
 import java.util.Arrays;
 import java.util.concurrent.atomic.AtomicInteger;

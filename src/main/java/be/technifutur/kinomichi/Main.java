@@ -1,13 +1,12 @@
 package be.technifutur.kinomichi;
 
 import be.technifutur.kinomichi.C.Kinomichi;
+import be.technifutur.kinomichi.V.Promptor;
 import store.luniversdemm.common.Saisir;
-
-import static be.technifutur.kinomichi.V.Promptor.getTitle;
 
 public class Main {
     static void main(String... args){
-        getTitle();
+        Promptor.getTitle();
 
         try{
             Saisir.openScanner();

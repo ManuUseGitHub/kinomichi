@@ -1,7 +1,7 @@
 KINOMICHI
 ===
 > **Built with** `JDK 25.0.2`
-> **(c)** `Jean Luc Emmanuel VERHANNEMAN`, 2026 | **LICENSE** MIT 
+> **(c)** `Jean Luc Emmanuel VERHANNEMAN`, 2026 | **LICENSE** [MIT](https://raw.githubusercontent.com/ManuUseGitHub/kinomichi/refs/heads/dev/LICENSE) 
 
 [TOC]
 

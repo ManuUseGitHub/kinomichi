@@ -5,12 +5,13 @@ import be.technifutur.kinomichicommon.C.States;
 import store.luniversdemm.common.Saisir;
 
 public class Kinomichi extends Agent {
-    private StateEngine stateEngin;
+    private StateEngine stateEngine;
     private final RequestTranslator requestTranslator;
 
     public Kinomichi(){
         this.requestTranslator = new RequestTranslator();
-        this.stateEngin = new StateEngine(States.MAIN_MENU);
+        this.stateEngine = new StateEngine(States.MAIN_MENU);
+        Promptor.setStateEngine(this.stateEngine);
     }
 
     @Override
@@ -25,10 +26,10 @@ public class Kinomichi extends Agent {
         long data = 0;
 
         while(-999 != data) {
-            Promptor.getMenuA();
+            Promptor.getMenu();
             Promptor.askWhatDo();
             data = this.requestTranslator.translate(Saisir.scanString());
-
+            stateEngine.apply(data);
             request(data);
         }
     }

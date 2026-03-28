@@ -14,8 +14,8 @@ public class StateEngine {
         return currentState;
     }
 
-    public void apply(int i) {
-        this.currentState = switch(i){
+    public void apply(long i) {
+        this.currentState = switch((int)i){
             case 1 -> States.PLAGE_MANAGEMENT;
             case 2 -> States.PEOPLE_MANAGEMENT;
             case 3 -> States.ADMIN_MANAGEMENT;

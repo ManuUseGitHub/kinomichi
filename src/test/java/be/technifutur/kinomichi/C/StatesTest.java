@@ -26,8 +26,9 @@ public class StatesTest {
     static Stream<Arguments> navigationEnumExpectations(){
         return Stream.of(
                 Arguments.of("a",States.MAIN_MENU),
-                Arguments.of("b",States.PEOPLE_MANAGEMENT),
-                Arguments.of("c",States.PLAGE_MANAGEMENT)
+                Arguments.of("b",States.PLAGE_MANAGEMENT),
+                Arguments.of("c",States.PEOPLE_MANAGEMENT)
+
         );
     }
 

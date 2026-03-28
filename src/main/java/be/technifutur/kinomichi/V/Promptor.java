@@ -1,8 +1,15 @@
 package be.technifutur.kinomichi.V;
 
+import be.technifutur.kinomichi.C.StateEngine;
 import be.technifutur.kinomichi.Constants;
 
 public class Promptor {
+    private static StateEngine engine;
+
+    public static void setStateEngine(StateEngine engine){
+        Promptor.engine = engine;
+    }
+
     public static void getTitle(){
         System.out.printf("""
                  |  / _)                          _)        |     _)
@@ -18,8 +25,12 @@ public class Promptor {
         getTitle();
     }
 
-    public static void getMenuA(){
-        System.out.println(new MenuA().toString());
+    public static void getMenu(){
+        if("a".equals(engine.getCurrentState().getValue())){
+            System.out.println(new MenuA());
+        }else if("b".equals(engine.getCurrentState().getValue())){
+            System.out.println(new MenuB());
+        }
     }
 
     public static void askWhatDo(){

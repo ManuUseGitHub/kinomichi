@@ -17,7 +17,7 @@ public class StateEngine {
             case 1 -> States.PLAGE_MANAGEMENT.getValue();
             case 2 -> States.PEOPLE_MANAGEMENT.getValue();
             case 3 -> States.ADMIN_MANAGEMENT.getValue();
-            default -> throw new IllegalStateException("Unexpected value: " + i);
+            default -> currentState;
         };
     }
 }

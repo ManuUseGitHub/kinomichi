@@ -42,4 +42,12 @@ class StateEngineTest {
 
         assertEquals(state.getValue(),engine.getCurrentState());
     }
+
+    @Test
+    public void aNonCompriseActionDoesNotChangeTheNavigation(){
+        StateEngine engine = new StateEngine(States.MAIN_MENU);
+        engine.apply(Integer.MAX_VALUE);
+
+        assertEquals("a",engine.getCurrentState());
+    }
 }

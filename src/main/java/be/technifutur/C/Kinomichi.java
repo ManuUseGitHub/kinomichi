@@ -2,6 +2,7 @@ package be.technifutur.C;
 
 import be.technifutur.M.RequestTranslator;
 import be.technifutur.M.StateEngine;
+import be.technifutur.M.States;
 import be.technifutur.V.Promptor;
 import store.luniversdemm.common.Saisir;
 
@@ -11,7 +12,7 @@ public class Kinomichi extends Agent {
 
     public Kinomichi(){
         this.requestTranslator = new RequestTranslator();
-        this.stateEngin = new StateEngine();
+        this.stateEngin = new StateEngine(States.MAIN_MENU);
     }
 
     @Override

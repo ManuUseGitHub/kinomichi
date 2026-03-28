@@ -13,4 +13,12 @@ class StateEngineTest {
         assertEquals("a",engine.getCurrentState());
     }
 
+    @Test
+    public void aCompriseActionLeadToAttendedNavigation(){
+        StateEngine engine = new StateEngine(States.MAIN_MENU);
+        engine.apply(1);
+
+        assertEquals("b",engine.getCurrentState());
+    }
+
 }

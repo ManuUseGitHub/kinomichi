@@ -6,19 +6,19 @@ import java.util.concurrent.atomic.AtomicReference;
 public enum States {
     MAIN_MENU("a", "Menu principal"),
 
-    PEOPLE_MANAGEMENT("b","Gestion des participants"),
-    PLAGE_MANAGEMENT("c","Gestion des plages"),
+    PLAGE_MANAGEMENT("b","Gestion des plages"),
+    PEOPLE_MANAGEMENT("c","Gestion des participants"),
     ADMIN_MANAGEMENT("d", "Administration"),
 
-    PEOPLE_ADDING("b1", "Ajout d'un participant"),
-    PEOPLE_DELETING("b2", "Suppression"),
-    PEOPLE_EDIT("b3", "Edition d'un participant"),
-    PEOPLE_LISTING("b4", "Liste des participants"),
+    PLAGE_ADDING("b1", "Ajout de plage(s)"),
+    PLAGE_DELETING("b2", "Suppression de plage(s)"),
+    PLAGE_EDIT("b3", "Edition d'une plage"),
+    PLAGE_LISTING("b4", "Liste des plages"),
 
-    PLAGE_ADDING("c1", "Ajout de plage(s)"),
-    PLAGE_DELETING("c2", "Suppression de plage(s)"),
-    PLAGE_EDIT("c3", "Edition d'une plage"),
-    PLAGE_LISTING("c4", "Liste des plages");
+    PEOPLE_ADDING("c1", "Ajout d'un participant"),
+    PEOPLE_DELETING("c2", "Suppression"),
+    PEOPLE_EDIT("c3", "Edition d'un participant"),
+    PEOPLE_LISTING("c4", "Liste des participants");
 
     private final String value;
     private final String label;

@@ -11,4 +11,10 @@ public class StateEngine {
     public String getCurrentState() {
         return currentState;
     }
+
+    public void apply(int i) {
+        if(i == 1){
+            this.currentState = States.PLAGE_MANAGEMENT.getValue();
+        }
+    }
 }

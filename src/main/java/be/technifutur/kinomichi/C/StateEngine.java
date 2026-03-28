@@ -1,5 +1,7 @@
 package be.technifutur.kinomichi.C;
 
+import be.technifutur.kinomichicommon.C.States;
+
 public class StateEngine {
 
     private States currentState;

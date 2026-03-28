@@ -1,0 +1,9 @@
+<component name="ArtifactManager">
+  <artifact type="jar" name="Kinomichi:jar">
+    <output-path>$PROJECT_DIR$/out</output-path>
+    <root id="archive" name="Kinomichi.jar">
+      <element id="module-output" name="Kinomichi" />
+      <element id="module-output" name="kinomichicommon" />
+    </root>
+  </artifact>
+</component>

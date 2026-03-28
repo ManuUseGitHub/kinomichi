@@ -1,5 +1,6 @@
 package be.technifutur.kinomichi.C;
 
+import be.technifutur.kinomichicommon.C.States;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.Arguments;

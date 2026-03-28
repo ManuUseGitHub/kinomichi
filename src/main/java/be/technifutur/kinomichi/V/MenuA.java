@@ -23,7 +23,7 @@ public final class MenuA extends Menu implements HasMenuItems {
     protected String getMenuFooter() {
         return """
                 - - - - - QUITTER - - - - -
-                [q] quitter / annuler
+                [q] quitter
                 - - - - - - - - - - - - - -
                 """;
     };

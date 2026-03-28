@@ -12,7 +12,7 @@ public abstract class Menu implements HasMenuItems {
     protected String getMenuFooter() {
         return """
                 - - - - - QUITTER - - - - -
-                [:q] quitter / annuler
+                [r] quitter / annuler
                 - - - - - - - - - - - - - -
                 """;
     };

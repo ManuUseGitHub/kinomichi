@@ -22,9 +22,16 @@ public class RequestTranslatorTest {
     }
 
     @Test
-    void testSelectingQuitReturnQuitCommand() {
+    void testSelectingQuitGivesQuitCommand() {
         RequestTranslator req = new RequestTranslator();
-        var result = req.translate(":q");
+        var result = req.translate("q");
         Assertions.assertEquals(-999, result);
+    }
+
+    @Test
+    void testSelectingReturnGivesReturnCommand() {
+        RequestTranslator req = new RequestTranslator();
+        var result = req.translate("r");
+        Assertions.assertEquals(-998, result);
     }
 }

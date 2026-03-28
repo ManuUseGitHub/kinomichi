@@ -20,6 +20,15 @@ public final class MenuA extends Menu implements HasMenuItems {
     }
 
     @Override
+    protected String getMenuFooter() {
+        return """
+                - - - - - QUITTER - - - - -
+                [q] quitter / annuler
+                - - - - - - - - - - - - - -
+                """;
+    };
+
+    @Override
     public Stream<String> getItems() {
         return items;
     }

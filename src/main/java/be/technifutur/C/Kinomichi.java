@@ -1,14 +1,17 @@
 package be.technifutur.C;
 
 import be.technifutur.M.RequestTranslator;
+import be.technifutur.M.StateEngine;
 import be.technifutur.V.Promptor;
 import store.luniversdemm.common.Saisir;
 
 public class Kinomichi extends Agent {
-
+    private StateEngine stateEngin;
     private final RequestTranslator requestTranslator;
+
     public Kinomichi(){
         this.requestTranslator = new RequestTranslator();
+        this.stateEngin = new StateEngine();
     }
 
     @Override
@@ -20,14 +23,14 @@ public class Kinomichi extends Agent {
     }
 
     public void run() {
-        String choice = "";
+        long data = 0;
 
-        while(!":q".equals(choice)) {
+        while(-999 != data) {
             Promptor.getMenuA();
             Promptor.askWhatDo();
-            choice = Saisir.scanString();
+            data = this.requestTranslator.translate(Saisir.scanString());
 
-            request(this.requestTranslator.translate(choice));
+            request(data);
         }
     }
 }

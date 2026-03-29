@@ -37,13 +37,17 @@ class PromptorTest {
     @BeforeEach
     public void setUp() {
         System.setOut(new PrintStream(outputStreamCaptor));
+        StateEngine engine = StateEngine.getInstance();
+        engine.initStateEngine(States.MAIN_MENU);
     }
 
     @Test
     void displayingThePlagesMenuWhenTheStateChanged() throws Exception {
 
         String text = tapSystemOut(() -> {
-            StateEngine engine = new StateEngine(States.MAIN_MENU);
+            StateEngine engine = StateEngine.getInstance();
+            engine.apply(-996); // force getting back home because of the singleton
+
             Promptor.setStateEngine(engine);
 
             engine.apply(1);
@@ -57,7 +61,8 @@ class PromptorTest {
     void displayingTheCorrectMenuWhenTheStateChanged(int event, String menuTitle) throws Exception {
 
         String text = tapSystemOut(() -> {
-            StateEngine engine = new StateEngine(States.MAIN_MENU);
+            StateEngine engine = StateEngine.getInstance();
+            engine.apply(-996); // force getting back home because of the singleton
             Promptor.setStateEngine(engine);
 
             engine.apply(event);
@@ -71,7 +76,7 @@ class PromptorTest {
     void itIsPossibleToDisplayTheMainMenuFromABackNavigationOfBCD(int event) throws Exception {
 
         String text = tapSystemOut(() -> {
-            StateEngine engine = new StateEngine(States.MAIN_MENU);
+            StateEngine engine = StateEngine.getInstance();
             Promptor.setStateEngine(engine);
 
             // FRONT EVENT navigation to (...)
@@ -85,8 +90,10 @@ class PromptorTest {
     }
 
     @AfterEach
-    public void tearDown() {
+    public void tearDown(){
         System.setOut(standardOut);
+        StateEngine engine = StateEngine.getInstance();
+        engine.initStateEngine(States.MAIN_MENU);
     }
 
 

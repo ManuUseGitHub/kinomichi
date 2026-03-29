@@ -1,6 +1,8 @@
 package be.technifutur.kinomichi.C;
 
 import be.technifutur.kinomichicommon.C.States;
+import org.junit.jupiter.api.AfterEach;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.Arguments;
@@ -8,23 +10,31 @@ import org.junit.jupiter.params.provider.MethodSource;
 
 import java.util.List;
 
+import static be.technifutur.kinomichi.StateEngineHelper.navigateFromHome;
 import static org.junit.jupiter.api.Assertions.*;
 
 class StateEngineTest {
 
+    @BeforeEach
+    public void tearUp(){
+        StateEngine.getInstance().initStateEngine(States.MAIN_MENU);
+        navigateFromHome();
+    }
+
     @Test
     public void theCreationOfInstanceInitiatesAState(){
-        StateEngine engine = new StateEngine(States.MAIN_MENU);
+        navigateFromHome();
 
-        assertEquals("a",engine.getCurrentState().getValue());
+        assertEquals("a",StateEngine.getInstance().getCurrentState().getValue());
     }
 
     @Test
     public void aCompriseActionLeadsToAttendedNavigation(){
-        StateEngine engine = new StateEngine(States.MAIN_MENU);
-        engine.apply(1);
-
-        assertEquals("b",engine.getCurrentState().getValue());
+        StateEngine.getInstance().apply(1);
+        assertEquals("b",StateEngine
+                .getInstance()
+                .getCurrentState()
+                .getValue());
     }
 
     static List<Arguments> actionsForNavigation(){
@@ -38,34 +48,35 @@ class StateEngineTest {
     @ParameterizedTest
     @MethodSource("actionsForNavigation")
     public void compriseActionOnMainMenuLeadToAttendedNavigation(int entry, States state){
-        StateEngine engine = new StateEngine(States.MAIN_MENU);
-        engine.apply(entry);
+        StateEngine.getInstance().apply(entry);
 
-        assertEquals(state.getValue(),engine.getCurrentState().getValue());
+        assertEquals(state.getValue(),StateEngine.getInstance().getCurrentState().getValue());
     }
 
     @Test
     public void aNonCompriseActionDoesNotChangeTheNavigation(){
-        StateEngine engine = new StateEngine(States.MAIN_MENU);
-        engine.apply(Integer.MAX_VALUE);
+        StateEngine.getInstance().apply(Integer.MAX_VALUE);
 
-        assertEquals("a",engine.getCurrentState().getValue());
+        assertEquals("a",StateEngine.getInstance().getCurrentState().getValue());
     }
 
     @Test
     void cantInvokeQuitEventFromMainMenu(){
-        StateEngine engine = new StateEngine(States.MAIN_MENU);
-        engine.apply(-999);
-        assertNull(engine.getCurrentState());
+        StateEngine.getInstance().apply(-999);
+        assertNull(StateEngine.getInstance().getCurrentState());
     }
 
     @ParameterizedTest
     @MethodSource("actionsForNavigation")
     void cannotInvokeQuitEventFromOtherThanMainMenu(int entry, States state){
-        StateEngine engine = new StateEngine(States.MAIN_MENU);
-        engine.apply(entry);
-        engine.apply(-999);
-        assertEquals(state.getValue(),engine.getCurrentState().getValue());
+        StateEngine.getInstance().apply(entry);
+        StateEngine.getInstance().apply(-999);
+        assertEquals(state.getValue(),StateEngine.getInstance().getCurrentState().getValue());
+    }
+
+    @AfterEach
+    public void tearDown(){
+        StateEngine.getInstance().initStateEngine(States.MAIN_MENU);
     }
 
 }

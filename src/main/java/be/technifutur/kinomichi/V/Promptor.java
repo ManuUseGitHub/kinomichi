@@ -2,6 +2,7 @@ package be.technifutur.kinomichi.V;
 
 import be.technifutur.kinomichi.C.StateEngine;
 import be.technifutur.kinomichi.Constants;
+import be.technifutur.kinomichi.V.menuB.*;
 
 public class Promptor {
     private static StateEngine engine;
@@ -28,18 +29,22 @@ public class Promptor {
     public static void getMenu(){
         System.out.println(switch (engine.getCurrentState()){
             case MAIN_MENU -> new MenuA();
-            case PLAGE_MANAGEMENT -> new MenuB();
-            case PLAGE_ADDING -> null;
-            case PLAGE_DELETING -> null;
-            case PLAGE_EDIT -> null;
-            case PLAGE_LISTING -> null;
 
+            // B
+            case PLAGE_MANAGEMENT -> new MenuB();
+            case PLAGE_ADDING -> new MenuB1();
+            case PLAGE_DELETING -> new MenuB2();
+            case PLAGE_EDIT -> new MenuB3();
+            case PLAGE_LISTING -> new MenuB4();
+
+            // C
             case PEOPLE_MANAGEMENT -> new MenuC();
             case PEOPLE_ADDING -> null;
             case PEOPLE_DELETING -> null;
             case PEOPLE_EDIT -> null;
             case PEOPLE_LISTING -> null;
 
+            // D
             case ADMIN_MANAGEMENT -> new MenuD();
         });
     }

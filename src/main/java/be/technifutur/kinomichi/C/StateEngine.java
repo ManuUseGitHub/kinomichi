@@ -6,16 +6,26 @@ public class StateEngine {
 
     private States currentState;
 
-    public StateEngine(States state) {
-        this.currentState = state;
-    }
+    //region Singleton part
+    private StateEngine(){};
+    private static StateEngine INSTANCE;
+    public static StateEngine getInstance() {
+        if(INSTANCE == null) {
+            INSTANCE = new StateEngine();
+        }
 
-    public States getCurrentState() {
-        return currentState;
+        return INSTANCE;
+    }
+    //endregion
+
+    public void initStateEngine(States initialState){
+        if (currentState == null){
+            currentState = initialState;
+        }
     }
 
     public void apply(long event) {
-        this.currentState = this.dispatchStatesDecision(event);
+        currentState = this.dispatchStatesDecision(event);
     }
 
     private States homeDecision(long event){
@@ -29,6 +39,50 @@ public class StateEngine {
     }
 
     private States plagesDecision(long event){
+        return switch((int)event){
+            case 1 -> States.PLAGE_ADDING;
+            case 2 -> States.PLAGE_DELETING;
+            case 3 -> States.PLAGE_EDIT;
+            case 4 -> States.PLAGE_LISTING;
+            case -996 -> States.MAIN_MENU;
+            default -> currentState;
+        };
+    }
+
+    private States plagesDecisionB1(long event){
+        return switch((int)event){
+            case 1 -> States.PLAGE_ADDING;
+            case 2 -> States.PLAGE_DELETING;
+            case 3 -> States.PLAGE_EDIT;
+            case 4 -> States.PLAGE_LISTING;
+            case -996 -> States.MAIN_MENU;
+            default -> currentState;
+        };
+    }
+
+    private States plagesDecisionB2(long event){
+        return switch((int)event){
+            case 1 -> States.PLAGE_ADDING;
+            case 2 -> States.PLAGE_DELETING;
+            case 3 -> States.PLAGE_EDIT;
+            case 4 -> States.PLAGE_LISTING;
+            case -996 -> States.MAIN_MENU;
+            default -> currentState;
+        };
+    }
+
+    private States plagesDecisionB3(long event){
+        return switch((int)event){
+            case 1 -> States.PLAGE_ADDING;
+            case 2 -> States.PLAGE_DELETING;
+            case 3 -> States.PLAGE_EDIT;
+            case 4 -> States.PLAGE_LISTING;
+            case -996 -> States.MAIN_MENU;
+            default -> currentState;
+        };
+    }
+
+    private States plagesDecisionB4(long event){
         return switch((int)event){
             case 1 -> States.PLAGE_ADDING;
             case 2 -> States.PLAGE_DELETING;
@@ -60,10 +114,24 @@ public class StateEngine {
     private States dispatchStatesDecision(long event){
         return switch (currentState){
             case MAIN_MENU ->  homeDecision(event);
+
+            // B
             case PLAGE_MANAGEMENT ->  plagesDecision(event);
+            case PLAGE_ADDING ->  plagesDecisionB1(event);
+            case PLAGE_DELETING ->  plagesDecisionB2(event);
+            case PLAGE_EDIT ->  plagesDecisionB3(event);
+            case PLAGE_LISTING ->  plagesDecisionB4(event);
+
+            // C
             case PEOPLE_MANAGEMENT -> peopleDecision(event);
+
+            // D
             case ADMIN_MANAGEMENT -> adminDecision(event);
             default -> homeDecision(event);
         };
+    }
+
+    public States getCurrentState() {
+        return currentState;
     }
 }

@@ -41,6 +41,7 @@ public abstract class Menu implements HasMenuItems {
         return """
                 - - - - - REVENIR - - - - -
                 [r] Revenir en arrière
+                [a] Menu principal
                 - - - - - - - - - - - - - -
                 """;
     };

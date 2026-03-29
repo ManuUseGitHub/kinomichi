@@ -8,6 +8,7 @@ import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.Arguments;
 import org.junit.jupiter.params.provider.MethodSource;
+import org.junit.jupiter.params.provider.ValueSource;
 
 import java.io.ByteArrayOutputStream;
 import java.io.PrintStream;
@@ -63,6 +64,24 @@ class PromptorTest {
             Promptor.getMenu();
         });
         assertTrue(Pattern.matches(".*"+menuTitle+".*",text.split("\n")[0]));
+    }
+
+    @ParameterizedTest
+    @ValueSource( ints = {1,2,3})
+    void itIsPossibleToDisplayTheMainMenuFromABackNavigationOfBCD(int event) throws Exception {
+
+        String text = tapSystemOut(() -> {
+            StateEngine engine = new StateEngine(States.MAIN_MENU);
+            Promptor.setStateEngine(engine);
+
+            // FRONT EVENT navigation to (...)
+            engine.apply(event);
+
+            // BACK EVENT
+            engine.apply(-996);
+            Promptor.getMenu();
+        });
+        assertTrue(Pattern.matches(".*Menu principal.*",text.split("\n")[0]));
     }
 
     @AfterEach

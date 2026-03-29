@@ -19,6 +19,7 @@ public class StateEngine {
             case 1 -> States.PLAGE_MANAGEMENT;
             case 2 -> States.PEOPLE_MANAGEMENT;
             case 3 -> States.ADMIN_MANAGEMENT;
+            case -996 -> States.MAIN_MENU;
             default -> currentState;
         };
     }

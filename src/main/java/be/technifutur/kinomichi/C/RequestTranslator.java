@@ -5,6 +5,7 @@ import java.util.regex.Pattern;
 public class RequestTranslator {
     public long translate(String data){
         return switch (data) {
+            case "a" -> -996;
             case "r" -> -998;
             case "q" -> -999;
             default ->

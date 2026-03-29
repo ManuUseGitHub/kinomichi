@@ -51,4 +51,21 @@ class StateEngineTest {
 
         assertEquals("a",engine.getCurrentState().getValue());
     }
+
+    @Test
+    void cantInvokeQuitEventFromMainMenu(){
+        StateEngine engine = new StateEngine(States.MAIN_MENU);
+        engine.apply(-999);
+        assertNull(engine.getCurrentState());
+    }
+
+    @ParameterizedTest
+    @MethodSource("actionsForNavigation")
+    void cannotInvokeQuitEventFromOtherThanMainMenu(int entry, States state){
+        StateEngine engine = new StateEngine(States.MAIN_MENU);
+        engine.apply(entry);
+        engine.apply(-999);
+        assertEquals(state.getValue(),engine.getCurrentState().getValue());
+    }
+
 }

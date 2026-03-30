@@ -37,7 +37,7 @@ class TimeTableTest {
 
     @Test
     void aTimeTableOfXX_XX_YearFallsBackToFirstOfJanuaryOfThatDate(){
-        TimeTable timeTable = new TimeTable.Builder("échauffement 2")
+        TimeTable timeTable = new TimeTable.Builder("échauffement 3")
                 .date("0/0/1993")
                 .build();
         int m = timeTable.getDate().getMonthValue();
@@ -45,5 +45,19 @@ class TimeTableTest {
 
         assertEquals(1,d);
         assertEquals(1,m);
+    }
+
+    @Test
+    void aTimeTableOf50_20_5000FallsBackToFirstOfJanuaryOfThatDate(){
+        TimeTable timeTable = new TimeTable.Builder("échauffement 4")
+                .date("50/20/5000")
+                .build();
+        int y = timeTable.getDate().getYear();
+        int m = timeTable.getDate().getMonthValue();
+        int d = timeTable.getDate().getDayOfMonth();
+
+        assertEquals(5000, y);
+        assertEquals(31,d);
+        assertEquals(12,m);
     }
 }

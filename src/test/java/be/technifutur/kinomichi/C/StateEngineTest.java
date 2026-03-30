@@ -17,7 +17,6 @@ class StateEngineTest {
 
     @BeforeEach
     public void tearUp(){
-        StateEngine.getInstance().initStateEngine(States.MAIN_MENU);
         navigateFromHome();
     }
 

@@ -2,6 +2,7 @@ package be.technifutur.kinomichi.V;
 
 import be.technifutur.kinomichi.C.StateEngine;
 import be.technifutur.kinomichicommon.C.States;
+import be.technifutur.kinomichicommon.Constants;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -46,7 +47,7 @@ class PromptorTest {
 
         String text = tapSystemOut(() -> {
             StateEngine engine = StateEngine.getInstance();
-            engine.apply(-996); // force getting back home because of the singleton
+            engine.apply(Constants.GO_HOME_CODE_GRANTED); // force getting back home because of the singleton
 
             Promptor.setStateEngine(engine);
 
@@ -62,7 +63,7 @@ class PromptorTest {
 
         String text = tapSystemOut(() -> {
             StateEngine engine = StateEngine.getInstance();
-            engine.apply(-996); // force getting back home because of the singleton
+            engine.apply(Constants.GO_HOME_CODE_GRANTED); // force getting back home because of the singleton
             Promptor.setStateEngine(engine);
 
             engine.apply(event);
@@ -83,7 +84,25 @@ class PromptorTest {
             engine.apply(event);
 
             // BACK EVENT
-            engine.apply(-996);
+            engine.apply(Constants.BACK_CODE);
+            Promptor.getMenu();
+        });
+        assertTrue(Pattern.matches(".*Menu principal.*",text.split("\n")[0]));
+    }
+
+    @ParameterizedTest
+    @ValueSource( ints = {1,2,3})
+    void itIsPossibleToDisplayTheMainMenuFromABackHomeEventOfBCD(int event) throws Exception {
+
+        String text = tapSystemOut(() -> {
+            StateEngine engine = StateEngine.getInstance();
+            Promptor.setStateEngine(engine);
+
+            // FRONT EVENT navigation to (...)
+            engine.apply(event);
+
+            // BACK EVENT
+            engine.apply(Constants.GO_HOME_CODE_GRANTED);
             Promptor.getMenu();
         });
         assertTrue(Pattern.matches(".*Menu principal.*",text.split("\n")[0]));

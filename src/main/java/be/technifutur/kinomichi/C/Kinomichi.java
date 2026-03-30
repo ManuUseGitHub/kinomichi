@@ -2,6 +2,7 @@ package be.technifutur.kinomichi.C;
 
 import be.technifutur.kinomichi.V.Promptor;
 import be.technifutur.kinomichicommon.C.States;
+import be.technifutur.kinomichicommon.Constants;
 import store.luniversdemm.common.Saisir;
 
 public class Kinomichi extends Agent {
@@ -28,7 +29,7 @@ public class Kinomichi extends Agent {
         long data = 0;
 
 
-        while(-999 != data) {
+        while(Constants.EXIT_CODE != data) {
             Promptor.getMenu();
             Promptor.askWhatDo();
             data = this.requestTranslator.translate(Saisir.scanString());

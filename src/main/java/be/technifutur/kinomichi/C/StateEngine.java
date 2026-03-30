@@ -1,6 +1,7 @@
 package be.technifutur.kinomichi.C;
 
 import be.technifutur.kinomichicommon.C.States;
+import be.technifutur.kinomichicommon.Constants;
 
 public class StateEngine {
 
@@ -39,12 +40,14 @@ public class StateEngine {
     }
 
     private States plagesDecision(long event){
+
         return switch((int)event){
             case 1 -> States.PLAGE_ADDING;
             case 2 -> States.PLAGE_DELETING;
             case 3 -> States.PLAGE_EDIT;
             case 4 -> States.PLAGE_LISTING;
-            case -996 -> States.MAIN_MENU;
+            case Constants.GO_HOME_CODE_GRANTED,
+                 Constants.BACK_CODE -> States.MAIN_MENU;
             default -> currentState;
         };
     }
@@ -55,7 +58,7 @@ public class StateEngine {
             case 2 -> States.PLAGE_DELETING;
             case 3 -> States.PLAGE_EDIT;
             case 4 -> States.PLAGE_LISTING;
-            case -996 -> States.MAIN_MENU;
+            case Constants.GO_HOME_CODE_GRANTED -> States.MAIN_MENU;
             default -> currentState;
         };
     }
@@ -66,7 +69,7 @@ public class StateEngine {
             case 2 -> States.PLAGE_DELETING;
             case 3 -> States.PLAGE_EDIT;
             case 4 -> States.PLAGE_LISTING;
-            case -996 -> States.MAIN_MENU;
+            case Constants.GO_HOME_CODE_GRANTED -> States.MAIN_MENU;
             default -> currentState;
         };
     }
@@ -77,7 +80,7 @@ public class StateEngine {
             case 2 -> States.PLAGE_DELETING;
             case 3 -> States.PLAGE_EDIT;
             case 4 -> States.PLAGE_LISTING;
-            case -996 -> States.MAIN_MENU;
+            case Constants.GO_HOME_CODE_GRANTED -> States.MAIN_MENU;
             default -> currentState;
         };
     }
@@ -88,7 +91,7 @@ public class StateEngine {
             case 2 -> States.PLAGE_DELETING;
             case 3 -> States.PLAGE_EDIT;
             case 4 -> States.PLAGE_LISTING;
-            case -996 -> States.MAIN_MENU;
+            case Constants.GO_HOME_CODE_GRANTED -> States.MAIN_MENU;
             default -> currentState;
         };
     }
@@ -99,14 +102,16 @@ public class StateEngine {
             case 2 -> States.PEOPLE_DELETING;
             case 3 -> States.PEOPLE_EDIT;
             case 4 -> States.PEOPLE_LISTING;
-            case -996 -> States.MAIN_MENU;
+            case Constants.GO_HOME_CODE_GRANTED,
+                 Constants.BACK_CODE -> States.MAIN_MENU;
             default -> currentState;
         };
     }
 
     private States adminDecision(long event){
         return switch((int)event){
-            case -996 -> States.MAIN_MENU;
+            case Constants.GO_HOME_CODE_GRANTED,
+                 Constants.BACK_CODE -> States.MAIN_MENU;
             default -> currentState;
         };
     }

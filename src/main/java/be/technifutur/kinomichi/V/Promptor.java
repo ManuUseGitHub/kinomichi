@@ -1,8 +1,8 @@
 package be.technifutur.kinomichi.V;
 
 import be.technifutur.kinomichi.C.StateEngine;
-import be.technifutur.kinomichi.Constants;
 import be.technifutur.kinomichi.V.menuB.*;
+import be.technifutur.kinomichi.Version;
 
 public class Promptor {
     private static StateEngine engine;
@@ -19,7 +19,7 @@ public class Promptor {
                 _|\\_\\ _| _|  _| \\___/  _|  _|  _| _| \\___| _| |_| _|
                 V %s
                 - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
-                """, Constants.VERSION);
+                """, Version.VERSION);
     }
 
     public static void clearAndGetTitle(){

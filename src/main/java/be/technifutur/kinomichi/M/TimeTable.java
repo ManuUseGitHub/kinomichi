@@ -34,8 +34,8 @@ public class TimeTable {
         public Builder date(String dateFormated){
             Utils.onMatch("(?<day>\\d{1,2})\\/(?<month>\\d{1,2})\\/(?<year>\\d{4})",dateFormated,m -> {
                 int year = Integer.parseInt(m.group("year"));
-                int month = Integer.parseInt(m.group("month"));
-                int inputDay = Integer.parseInt(m.group("day"));
+                int month = Math.max(1,Integer.parseInt(m.group("month")));
+                int inputDay = Math.max(1,Integer.parseInt(m.group("day")));
                 int dayOfMonth = Dates.maxMonthDays(year)[month-1];
                 this.date = LocalDate.of(year,
                         Math.min(month,12),

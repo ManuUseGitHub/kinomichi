@@ -29,9 +29,21 @@ class TimeTableTest {
     @MethodSource("months")
     void itIsPossibleToBuildATimeTableWithAnOverShoutedDate(int month){
         TimeTable timeTable = new TimeTable.Builder("échauffement 2")
-                .date("31/"+(month+1)+"/1993")
+                .date("0/"+(month+1)+"/1993")
                 .build();
 
         assertNotNull(timeTable.getDate());
+    }
+
+    @Test
+    void aTimeTableOfXX_XX_YearFallsBackToFirstOfJanuaryOfThatDate(){
+        TimeTable timeTable = new TimeTable.Builder("échauffement 2")
+                .date("0/0/1993")
+                .build();
+        int m = timeTable.getDate().getMonthValue();
+        int d = timeTable.getDate().getDayOfMonth();
+
+        assertEquals(1,d);
+        assertEquals(1,m);
     }
 }

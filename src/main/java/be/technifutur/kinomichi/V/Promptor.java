@@ -1,6 +1,7 @@
 package be.technifutur.kinomichi.V;
 
 import be.technifutur.kinomichi.C.StateEngine;
+import be.technifutur.kinomichi.V.menuA.MenuA;
 import be.technifutur.kinomichi.V.menuB.*;
 import be.technifutur.kinomichi.Version;
 

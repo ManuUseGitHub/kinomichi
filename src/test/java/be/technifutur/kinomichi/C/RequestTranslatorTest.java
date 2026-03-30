@@ -50,7 +50,6 @@ public class RequestTranslatorTest {
         if(!saved){
             savable.change();
         }
-        System.out.println(savable.isSaved());
         Assertions.assertEquals(event, new RequestTranslator().translate(action, savable));
     }
 }

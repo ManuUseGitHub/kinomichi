@@ -1,9 +1,15 @@
 package be.technifutur.kinomichi;
 
+import be.technifutur.kinomichi.C.StateEngine;
 import be.technifutur.kinomichicommon.interfaces.Savable;
 
 public class SavableImpl implements Savable {
     boolean saved = true;
+    private final StateEngine stateEngine;
+
+    public SavableImpl() {
+        this.stateEngine = StateEngine.getInstance();
+    }
 
     @Override
     public boolean save() {

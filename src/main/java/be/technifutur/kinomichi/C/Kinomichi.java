@@ -9,7 +9,7 @@ import store.luniversdemm.common.Saisir;
 public class Kinomichi extends Agent implements Savable {
     private final StateEngine stateEngine;
     private final RequestTranslator requestTranslator;
-    private boolean saved;
+    private boolean saved = true;
 
     public Kinomichi(){
         this.requestTranslator = new RequestTranslator();

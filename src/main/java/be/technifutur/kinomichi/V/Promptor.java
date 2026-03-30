@@ -2,6 +2,7 @@ package be.technifutur.kinomichi.V;
 
 import be.technifutur.kinomichi.C.StateEngine;
 import be.technifutur.kinomichi.V.menuA.MenuA;
+import be.technifutur.kinomichi.V.menuA.MenuPreA;
 import be.technifutur.kinomichi.V.menuB.*;
 import be.technifutur.kinomichi.Version;
 
@@ -29,7 +30,9 @@ public class Promptor {
 
     public static void getMenu(){
         System.out.println(switch (engine.getCurrentState()){
+            // A
             case MAIN_MENU -> new MenuA();
+            case PRE_MAIN_MENU -> new MenuPreA();
 
             // B
             case PLAGE_MANAGEMENT -> new MenuB();

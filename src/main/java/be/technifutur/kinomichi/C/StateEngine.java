@@ -58,6 +58,7 @@ public class StateEngine {
             case 2 -> States.PLAGE_DELETING;
             case 3 -> States.PLAGE_EDIT;
             case 4 -> States.PLAGE_LISTING;
+            case Constants.GO_HOME_CODE_CONDITIONED -> States.PRE_MAIN_MENU;
             case Constants.GO_HOME_CODE_GRANTED -> States.MAIN_MENU;
             default -> currentState;
         };
@@ -69,6 +70,7 @@ public class StateEngine {
             case 2 -> States.PLAGE_DELETING;
             case 3 -> States.PLAGE_EDIT;
             case 4 -> States.PLAGE_LISTING;
+            case Constants.GO_HOME_CODE_CONDITIONED -> States.PRE_MAIN_MENU;
             case Constants.GO_HOME_CODE_GRANTED -> States.MAIN_MENU;
             default -> currentState;
         };
@@ -80,6 +82,7 @@ public class StateEngine {
             case 2 -> States.PLAGE_DELETING;
             case 3 -> States.PLAGE_EDIT;
             case 4 -> States.PLAGE_LISTING;
+            case Constants.GO_HOME_CODE_CONDITIONED -> States.PRE_MAIN_MENU;
             case Constants.GO_HOME_CODE_GRANTED -> States.MAIN_MENU;
             default -> currentState;
         };
@@ -91,6 +94,7 @@ public class StateEngine {
             case 2 -> States.PLAGE_DELETING;
             case 3 -> States.PLAGE_EDIT;
             case 4 -> States.PLAGE_LISTING;
+            case Constants.GO_HOME_CODE_CONDITIONED -> States.PRE_MAIN_MENU;
             case Constants.GO_HOME_CODE_GRANTED -> States.MAIN_MENU;
             default -> currentState;
         };

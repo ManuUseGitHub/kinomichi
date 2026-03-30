@@ -1,6 +1,9 @@
 package be.technifutur.kinomichi.C;
 
+import be.technifutur.kinomichi.SavableImpl;
 import be.technifutur.kinomichicommon.C.States;
+import be.technifutur.kinomichicommon.Constants;
+import be.technifutur.kinomichicommon.interfaces.Savable;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -61,7 +64,7 @@ class StateEngineTest {
 
     @Test
     void cantInvokeQuitEventFromMainMenu(){
-        StateEngine.getInstance().apply(-999);
+        StateEngine.getInstance().apply(Constants.EXIT_CODE);
         assertNull(StateEngine.getInstance().getCurrentState());
     }
 
@@ -69,7 +72,7 @@ class StateEngineTest {
     @MethodSource("actionsForNavigation")
     void cannotInvokeQuitEventFromOtherThanMainMenu(int entry, States state){
         StateEngine.getInstance().apply(entry);
-        StateEngine.getInstance().apply(-999);
+        StateEngine.getInstance().apply(Constants.EXIT_CODE);
         assertEquals(state.getValue(),StateEngine.getInstance().getCurrentState().getValue());
     }
 
@@ -78,4 +81,17 @@ class StateEngineTest {
         StateEngine.getInstance().initStateEngine(States.MAIN_MENU);
     }
 
+    @Test
+    void anUnsavedPlageYieldsAConfirmationPageBeforeGoingHome(){
+        Savable savableImpl = new SavableImpl();
+        RequestTranslator req = new RequestTranslator();
+        StateEngine.getInstance().apply(1); // -> B
+        StateEngine.getInstance().apply(1); // -> B1
+        savableImpl.change();                     // -> B1 !
+        StateEngine.getInstance().apply(
+                req.translate("a",savableImpl) // -> -A
+        );
+
+        assertEquals("-a",StateEngine.getInstance().getCurrentState().getValue());
+    }
 }

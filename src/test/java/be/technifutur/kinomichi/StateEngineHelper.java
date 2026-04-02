@@ -13,7 +13,5 @@ public class StateEngineHelper {
         StateEngine
                 .getInstance()
                 .apply(Constants.GO_HOME_CODE_GRANTED);
-
-
     }
 }

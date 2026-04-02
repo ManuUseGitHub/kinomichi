@@ -2,6 +2,7 @@ package be.technifutur.kinomichi.M;
 
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
+import org.junit.jupiter.params.provider.Arguments;
 import org.junit.jupiter.params.provider.MethodSource;
 
 import java.util.List;
@@ -10,6 +11,27 @@ import java.util.stream.IntStream;
 import static org.junit.jupiter.api.Assertions.*;
 
 class TimeTableTest {
+    //region Method sources
+    public static List<Integer> months() {
+        return IntStream.range(0, 12)
+                .boxed()
+                .toList();
+    }
+    public static List<Arguments> startsWithDurations(){
+        return List.of(
+                Arguments.of("10:30","15",10,45),
+                Arguments.of("10:45","30",11,15),
+                Arguments.of("11:15","45",12,0),
+                Arguments.of("13:00","30",13,30),
+                Arguments.of("13:30","1:30",15,0),
+                Arguments.of("15:00","120",17,0),
+
+                // The next hour is after midnight
+                Arguments.of("23:59","10",0,9)
+        );
+    }
+    //endregion
+
     @Test
     void itIsPossibleToBuildATimeTableWithAValidDate(){
         TimeTable timeTable = new TimeTable.Builder("échauffement")
@@ -19,10 +41,25 @@ class TimeTableTest {
         assertNotNull(timeTable.getDate());
     }
 
-    public static List<Integer> months() {
-        return IntStream.range(0, 12)
-                .boxed()
-                .toList();
+    @Test
+    void itIsPossibleToBuildATimeTableWithAvlidStartTime(){
+        TimeTable timeTable = new TimeTable.Builder("atelier gestion du temps")
+                .start("10:30")
+                .build();
+
+        assertNotNull(timeTable.getStart());
+    }
+
+    @ParameterizedTest
+    @MethodSource("startsWithDurations")
+    void itIsPossibleToBuildATimeTableWithADurationsWithStartTime(String start, String duration, int expectedHourEnd, int expectedMinuteEnd){
+        TimeTable timeTable = new TimeTable.Builder("atelier gestion du temps")
+                .start(start)
+                .duration(duration)
+                .build();
+
+        assertEquals(expectedHourEnd,timeTable.getEnd().getHour());
+        assertEquals(expectedMinuteEnd,timeTable.getEnd().getMinute());
     }
 
     @ParameterizedTest

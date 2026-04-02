@@ -1,7 +1,9 @@
 package be.technifutur.kinomichi.V;
 
+import be.technifutur.kinomichicommon.V.ConsoleColors;
 import be.technifutur.kinomichicommon.interfaces.HasMenuItems;
 
+import java.util.Arrays;
 import java.util.concurrent.atomic.AtomicInteger;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
@@ -16,13 +18,16 @@ public abstract class Menu implements HasMenuItems {
     }
 
     protected String getMenuHeader() {
-        return "- - %s - -".formatted(name);
+        return "- - %s - -".formatted(
+
+                name);
     }
 
     @Override
     public String getName() {
         return name;
     }
+
     @Override
     public Stream<String> getItems() {
         return items;
@@ -33,7 +38,7 @@ public abstract class Menu implements HasMenuItems {
         return """
                 %s
                 """.formatted(getItems()
-                .map(s -> ("[%d] %s".formatted(start.getAndAdd(1),s))
+                .map(s -> ("[%d] %s".formatted(start.getAndAdd(1), s))
                 ).collect(Collectors.joining("\n")));
     }
 
@@ -44,10 +49,46 @@ public abstract class Menu implements HasMenuItems {
                 [a] Menu principal
                 - - - - - - - - - - - - - -
                 """;
-    };
+    }
+
+    ;
 
     @Override
     public String toString() {
-        return "%s\n%s\n%s".formatted(getMenuHeader(), getMenuBody(), getMenuFooter());
+        String[] lines = "%s\n%s%s".formatted(
+                getMenuHeader(),
+                getMenuBody(),
+                getMenuFooter()
+        ).split("\n");
+
+        int maxLength = 0;
+
+        for (String str : lines) {
+            if (str != null && str.length() > maxLength) {
+                maxLength = str.length();
+            }
+        }
+
+        StringBuilder sb = new StringBuilder();
+
+        String border = ConsoleColors.BLACK+ConsoleColors.CYAN_BACKGROUND+"─".repeat(maxLength)+ConsoleColors.RESET;
+
+        sb.append("┌").append(border).append("┐\n");
+
+        for (String l : lines) {
+            int padding = maxLength - l.length();
+            String padded = l + " ".repeat(padding);
+            sb
+                    .append(ConsoleColors.BLACK+ConsoleColors.CYAN_BACKGROUND)
+                    .append("│")
+                    .append(ConsoleColors.BLACK+ ConsoleColors.CYAN_BACKGROUND+padded)
+                    .append(ConsoleColors.BLACK+ConsoleColors.CYAN_BACKGROUND+"│")
+                    .append(ConsoleColors.RESET)
+                    .append("\n");
+        }
+
+        sb.append("└").append(border).append("┘\n");
+
+        return sb.toString();
     }
 }

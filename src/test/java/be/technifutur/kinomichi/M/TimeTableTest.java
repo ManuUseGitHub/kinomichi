@@ -62,6 +62,29 @@ class TimeTableTest {
         assertEquals(expectedMinuteEnd,timeTable.getEnd().getMinute());
     }
 
+    @Test
+    void itIsPossibleToAddATimeTableWithADescription(){
+        TimeTable timeTable = new TimeTable.Builder("atelier préparation d'une présentation")
+                .description("C'est un atelier où on va apprendre à bien se présenter de façon martial")
+                .build();
+        assertEquals("C'est un atelier où on va apprendre à bien se présenter de façon martial",timeTable.getDescription());
+    }
+
+    @Test
+    void everyTimetableHasAnActivity(){
+        TimeTable timeTable = new TimeTable.Builder("test")
+                .build();
+        assertEquals("test",timeTable.getActivity());
+    }
+
+    @Test
+    void aTimeTableHasAnAnimator(){
+        TimeTable timeTable = new TimeTable.Builder("test2")
+                .animator("Chuck Norris")
+                .build();
+        assertEquals("Chuck Norris",timeTable.getAnimator());
+    }
+
     @ParameterizedTest
     @MethodSource("months")
     void itIsPossibleToBuildATimeTableWithAnOverShoutedDate(int month){

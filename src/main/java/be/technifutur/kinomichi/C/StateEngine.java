@@ -26,6 +26,7 @@ public class StateEngine {
     }
 
     public void apply(long event) {
+
         currentState = this.dispatchStatesDecision(event);
     }
 
@@ -54,10 +55,11 @@ public class StateEngine {
 
     private States plagesDecisionB1(long event){
         return switch((int)event){
-            case 1 -> States.PLAGE_ADDING;
+            case 1 -> States.PLAGE_ADDING_ACTIVITY;
             case 2 -> States.PLAGE_DELETING;
-            case 3 -> States.PLAGE_EDIT;
-            case 4 -> States.PLAGE_LISTING;
+            case 3 -> States.PLAGE_LISTING_ACTIVITY;
+            case 4 -> States.PLAGE_EDIT;
+            case Constants.BACK_CODE -> States.PLAGE_MANAGEMENT;
             case Constants.GO_HOME_CODE_CONDITIONED -> States.PRE_MAIN_MENU;
             case Constants.GO_HOME_CODE_GRANTED -> States.MAIN_MENU;
             default -> currentState;
@@ -127,9 +129,11 @@ public class StateEngine {
             // B
             case PLAGE_MANAGEMENT ->  plagesDecision(event);
             case PLAGE_ADDING ->  plagesDecisionB1(event);
+            case PLAGE_ADDING_ACTIVITY -> plagesDecisionB11(event);
             case PLAGE_DELETING ->  plagesDecisionB2(event);
             case PLAGE_EDIT ->  plagesDecisionB3(event);
             case PLAGE_LISTING ->  plagesDecisionB4(event);
+            case PLAGE_LISTING_ACTIVITY -> plagesDecisionB13(event);
 
             // C
             case PEOPLE_MANAGEMENT -> peopleDecision(event);
@@ -137,6 +141,20 @@ public class StateEngine {
             // D
             case ADMIN_MANAGEMENT -> adminDecision(event);
             default -> homeDecision(event);
+        };
+    }
+
+    private States plagesDecisionB11(long event) {
+        return switch((int)event){
+            case Constants.BACK_CODE -> States.PLAGE_ADDING;
+            default -> currentState;
+        };
+    }
+
+    private States plagesDecisionB13(long event) {
+        return switch((int)event){
+            case Constants.BACK_CODE -> States.PLAGE_ADDING;
+            default -> currentState;
         };
     }
 

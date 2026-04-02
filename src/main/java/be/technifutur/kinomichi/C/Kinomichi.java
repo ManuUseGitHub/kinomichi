@@ -1,15 +1,21 @@
 package be.technifutur.kinomichi.C;
 
+import be.technifutur.kinomichi.S.PlageService;
 import be.technifutur.kinomichi.V.Promptor;
+import be.technifutur.kinomichicommon.C.Event;
+import be.technifutur.kinomichicommon.C.EventBus;
 import be.technifutur.kinomichicommon.C.States;
 import be.technifutur.kinomichicommon.Constants;
+import be.technifutur.kinomichicommon.interfaces.IEventListener;
 import be.technifutur.kinomichicommon.interfaces.Savable;
 import store.luniversdemm.common.Saisir;
 
-public class Kinomichi extends Agent implements Savable {
+public class Kinomichi implements Savable {
+
     private final StateEngine stateEngine;
     private final RequestTranslator requestTranslator;
     private boolean saved = true;
+    private boolean doing;
 
     public Kinomichi(){
         this.requestTranslator = new RequestTranslator();
@@ -19,24 +25,46 @@ public class Kinomichi extends Agent implements Savable {
         Promptor.setStateEngine(this.stateEngine);
     }
 
-    @Override
-    public void request(long n) {
-        switch ((int) n){
-            case 1:
-                System.out.println("Hello world");
-        }
-    }
-
     public void run() {
         long data = 0;
+        new PlageService();
 
-        while(Constants.EXIT_CODE != data) {
-            Promptor.getMenu();
-            Promptor.askWhatDo();
+        String current = null;
 
-            data = this.requestTranslator.translate(Saisir.scanString(),this);
-            stateEngine.apply(data);
-            request(data);
+        EventBus.registerListener("FINISH:ACTIVITY", new IEventListener() {
+            @Override
+            public void processEvent(Event event) {
+                doing = false;
+                stateEngine.apply(Constants.BACK_CODE);
+            }
+        });
+        while(stateEngine.getCurrentState() != null) {
+            if(!this.doing){
+                // Only print AFTER state change
+                Promptor.getMenu();
+                Promptor.askWhatDo();
+                data = this.requestTranslator.translate(Saisir.scanString(), this);
+                current = stateEngine.getCurrentState().getValue();
+
+                stateEngine.apply(data);
+            }else{
+                try {
+                    Thread.sleep(1000);
+                } catch (InterruptedException e) {
+                    throw new RuntimeException(e);
+                }
+            }
+
+            if(stateEngine.getCurrentState() != null && !current.equals(stateEngine.getCurrentState().getValue())){
+                current = stateEngine.getCurrentState().getValue();
+                if(stateEngine.getCurrentState().getValue().matches("b11|b13")){
+                    doing = true;
+                }
+                EventBus.publishEvent(
+                        "NAV:"+stateEngine.getCurrentState().getValue(),
+                        Event.createAddEvent(this)
+                );
+            }
         }
     }
 

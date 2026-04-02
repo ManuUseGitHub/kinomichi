@@ -3,17 +3,29 @@ package be.technifutur.kinomichi.M;
 import store.luniversdemm.common.DateAndTimeUtils;
 import store.luniversdemm.common.Utils;
 
+import java.io.Serializable;
 import java.time.LocalDate;
 import java.time.LocalTime;
 
-public class TimeTable {
+
+public class TimeTable implements Serializable {
     private int id;
     private LocalDate date;
     private LocalTime start;
     private LocalTime end;
     private String animator;
+    private String description;
+    private String activity;
 
     private TimeTable() {
+    }
+
+    public String getDescription() {
+        return this.description;
+    }
+
+    public String getActivity() {
+        return this.activity;
     }
 
     public static class Builder {
@@ -25,6 +37,9 @@ public class TimeTable {
 
         private LocalTime start;
         private LocalTime end;
+
+        private String animator;
+        private int id;
 
         public Builder(String activity) {
             this.activity = activity;
@@ -41,6 +56,16 @@ public class TimeTable {
                         Math.min(inputDay, dayOfMonth));
             });
 
+            return this;
+        }
+
+        public Builder animator(String animator){
+            this.animator = animator;
+            return this;
+        }
+
+        public Builder description(String description){
+            this.description = description;
             return this;
         }
 
@@ -65,11 +90,38 @@ public class TimeTable {
 
         public TimeTable build() {
             TimeTable built = new TimeTable();
+            built.id = this.id;
             built.start = this.start;
             built.end = this.end;
             built.date = this.date;
+            built.description = this.description;
+            built.activity = this.activity;
+            built.animator = this.animator;
             return built;
         }
+
+        public Builder setId(int id) {
+            this.id = id;
+            return this;
+        }
+    }
+
+    @Override
+    public String toString(){
+        return """
+                >Tranche horaire n° (%d)
+                >-------------------------------------------------------------------------
+                >Activité : %s
+                >Description :
+                > %s
+                >Qui anime : %s
+                >Temporalité ------------------------------------------------------------
+                >%s | %s -> %s
+                """.formatted(
+                        getId(),getActivity(),getDescription(),getAnimator(),
+                getDate().getDayOfMonth()+"/"+getDate().getMonthValue()+"/"+getDate().getYear(),
+                getStart().getHour()+":"+getStart().getMinute(),
+                getEnd().getHour()+":"+getEnd().getMinute());
     }
 
     //region Accessors / Mutators

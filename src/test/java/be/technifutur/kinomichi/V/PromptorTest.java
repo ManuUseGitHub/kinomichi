@@ -19,7 +19,6 @@ import java.util.regex.Pattern;
 import static com.github.stefanbirkner.systemlambda.SystemLambda.tapSystemOut;
 import static org.junit.jupiter.api.Assertions.*;
 
-
 class PromptorTest {
     private final PrintStream standardOut = System.out;
     private final ByteArrayOutputStream outputStreamCaptor = new ByteArrayOutputStream();
@@ -54,7 +53,7 @@ class PromptorTest {
             engine.apply(1);
             Promptor.getMenu();
         });
-        assertTrue(Pattern.matches(".*Gestion des plages.*",text.split("\n")[0]));
+        assertTrue(Pattern.matches(".*Gestion des plages.*",text.split("\n")[1]));
     }
 
     @ParameterizedTest
@@ -69,7 +68,7 @@ class PromptorTest {
             engine.apply(event);
             Promptor.getMenu();
         });
-        assertTrue(Pattern.matches(".*"+menuTitle+".*",text.split("\n")[0]));
+        assertTrue(Pattern.matches(".*"+menuTitle+".*",text.split("\n")[1]));
     }
 
     @ParameterizedTest
@@ -87,7 +86,7 @@ class PromptorTest {
             engine.apply(Constants.BACK_CODE);
             Promptor.getMenu();
         });
-        assertTrue(Pattern.matches(".*Menu principal.*",text.split("\n")[0]));
+        assertTrue(Pattern.matches(".*Menu principal.*",text.split("\n")[1]));
     }
 
     @ParameterizedTest
@@ -105,7 +104,7 @@ class PromptorTest {
             engine.apply(Constants.GO_HOME_CODE_GRANTED);
             Promptor.getMenu();
         });
-        assertTrue(Pattern.matches(".*Menu principal.*",text.split("\n")[0]));
+        assertTrue(Pattern.matches(".*Menu principal.*",text.split("\n")[1]));
     }
 
     @AfterEach

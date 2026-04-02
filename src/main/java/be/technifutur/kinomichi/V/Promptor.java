@@ -5,6 +5,7 @@ import be.technifutur.kinomichi.V.menuA.MenuA;
 import be.technifutur.kinomichi.V.menuA.MenuPreA;
 import be.technifutur.kinomichi.V.menuB.*;
 import be.technifutur.kinomichi.Version;
+import be.technifutur.kinomichicommon.V.ConsoleColors;
 
 public class Promptor {
     private static StateEngine engine;
@@ -14,14 +15,14 @@ public class Promptor {
     }
 
     public static void getTitle(){
-        System.out.printf("""
+        System.out.printf(ConsoleColors.CYAN+"""
                  |  / _)                          _)        |     _)
                  ' /   |  __ \\    _ \\   __ `__ \\   |   __|  __ \\   |
                  . \\   |  |   |  (   |  |   |   |  |  (     | | |  |
                 _|\\_\\ _| _|  _| \\___/  _|  _|  _| _| \\___| _| |_| _|
-                V %s
+                V%s %s
                 - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
-                """, Version.VERSION);
+                """,ConsoleColors.RESET, Version.VERSION);
     }
 
     public static void clearAndGetTitle(){
@@ -37,6 +38,8 @@ public class Promptor {
             // B
             case PLAGE_MANAGEMENT -> new MenuB();
             case PLAGE_ADDING -> new MenuB1();
+            case PLAGE_ADDING_ACTIVITY -> new MenuB11();
+            case PLAGE_LISTING_ACTIVITY -> new MenuB13();
             case PLAGE_DELETING -> new MenuB2();
             case PLAGE_EDIT -> new MenuB3();
             case PLAGE_LISTING -> new MenuB4();

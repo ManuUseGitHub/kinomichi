@@ -1,10 +1,11 @@
 package be.technifutur.kinomichi.M;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.atomic.AtomicInteger;
 
-public class TimeTables {
+public class TimeTables implements Serializable {
     private List<TimeTable> timeTables;
 
     public TimeTables() {

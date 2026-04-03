@@ -11,6 +11,8 @@ public final class MenuB extends Menu implements HasMenuItems {
                 "Ajout de plages",
                 "Suppression de plages",
                 "Modification d'une plage",
+                "Charger des plages",
+                "Sauvegarder les plages",
                 "Listing des plages"
         }));
     }

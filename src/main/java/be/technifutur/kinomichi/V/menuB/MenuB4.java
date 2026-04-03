@@ -7,9 +7,10 @@ import java.util.Arrays;
 
 public final class MenuB4 extends Menu implements HasMenuItems {
     public MenuB4() {
-        super("[B] Listing des plages", Arrays.stream(new String[]{
-                "Afficher par filtres",
-                "Afficher toutes les plages"
+        super("Chargement de plages", Arrays.stream(new String[]{
+                "Par objects",
+                "Par textes générés"
         }));
     }
 }
+

@@ -113,6 +113,4 @@ class PromptorTest {
         StateEngine engine = StateEngine.getInstance();
         engine.initStateEngine(States.MAIN_MENU);
     }
-
-
 }

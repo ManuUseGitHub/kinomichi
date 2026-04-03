@@ -1,0 +1,264 @@
+/Library/Java/JavaVirtualMachines/jdk-25.jdk/Contents/Home/bin/java -javaagent:/Applications/IntelliJ IDEA.app/Contents/lib/idea_rt.jar=59561 -Dfile.encoding=UTF-8 -Dsun.stdout.encoding=UTF-8 -Dsun.stderr.encoding=UTF-8 -classpath /Users/jeanlucemmanuelverhanneman/Documents/formation/Java/Kinomichi/target/classes:/Users/jeanlucemmanuelverhanneman/Documents/formation/Java/kinomichicommon/out/production/kinomichicommon be.technifutur.kinomichi.Main
+ |  / _)                          _)        |     _)
+ ' /   |  __ \    _ \   __ `__ \   |   __|  __ \   |
+ . \   |  |   |  (   |  |   |   |  |  (     | | |  |
+_|\_\ _| _|  _| \___/  _|  _|  _| _| \___| _| |_| _|
+V 0.3.0
+- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+┌──────────────────────────────┐
+│- - Menu principal - -        │
+│[1] Gestion des plages        │
+│[2] Gestion des participants  │
+│[3] Administration des données│
+│- - - - - QUITTER - - - - -   │
+│[q] quitter                   │
+│- - - - - - - - - - - - - -   │
+└──────────────────────────────┘
+
+Que faire ?
+LOADING STATE
+1
+┌────────────────────────────┐
+│- - Gestion des plages - -  │
+│[1] Ajout de plages         │
+│[2] Suppression de plages   │
+│[3] Modification d'une plage│
+│[4] Charger des plages      │
+│[5] Sauvegarder les plages  │
+│[6] Listing des plages      │
+│- - - - - REVENIR - - - - - │
+│[r] Revenir en arrière      │
+│[a] Menu principal          │
+│- - - - - - - - - - - - - - │
+└────────────────────────────┘
+
+Que faire ?
+4
+┌────────────────────────────┐
+│- - Chargement de plages - -│
+│[1] Par objects             │
+│[2] Par textes générés      │
+│- - - - - REVENIR - - - - - │
+│[r] Revenir en arrière      │
+│[a] Menu principal          │
+│- - - - - - - - - - - - - - │
+└────────────────────────────┘
+
+Que faire ?
+2
+┌─────────────────────────────────────────┐
+│- - Chargement par log text - -          │
+│                                         │
+│... Sélectionnez un fichier à charger ...│
+└─────────────────────────────────────────┘
+
+Entrez le chemin vers un fichier
+saveState.kino
+┌────────────────────────────┐
+│- - Gestion des plages - -  │
+│[1] Ajout de plages         │
+│[2] Suppression de plages   │
+│[3] Modification d'une plage│
+│[4] Charger des plages      │
+│[5] Sauvegarder les plages  │
+│[6] Listing des plages      │
+│- - - - - REVENIR - - - - - │
+│[r] Revenir en arrière      │
+│[a] Menu principal          │
+│- - - - - - - - - - - - - - │
+└────────────────────────────┘
+
+Que faire ?
+1
+┌───────────────────────────┐
+│- - [B] Ajout de plages - -│
+│[1] Ajouter                │
+│[2] Modification des plages│
+│[3] Aperçu des plages      │
+│[4] Appliquer              │
+│- - - - - REVENIR - - - - -│
+│[r] Revenir en arrière     │
+│[a] Menu principal         │
+│- - - - - - - - - - - - - -│
+└───────────────────────────┘
+
+Que faire ?
+3
+┌──────────────────────────────────────┐
+│- - [B] Listing des plages - -        │
+│                                      │
+│Prenez le temps de vérifier vos plages│
+│                                      │
+│- - - - - REVENIR - - - - -           │
+│[r] retour au menu précédent          │
+│- - - - - - - - - - - - - -           │
+└──────────────────────────────────────┘
+
+Faites la touche <Enter> pour continuer
+
+┌───────────────────────────┐
+│- - [B] Ajout de plages - -│
+│[1] Ajouter                │
+│[2] Modification des plages│
+│[3] Aperçu des plages      │
+│[4] Appliquer              │
+│- - - - - REVENIR - - - - -│
+│[r] Revenir en arrière     │
+│[a] Menu principal         │
+│- - - - - - - - - - - - - -│
+└───────────────────────────┘
+
+Que faire ?
+a
+┌──────────────────────────────┐
+│- - Menu principal - -        │
+│[1] Gestion des plages        │
+│[2] Gestion des participants  │
+│[3] Administration des données│
+│- - - - - QUITTER - - - - -   │
+│[q] quitter                   │
+│- - - - - - - - - - - - - -   │
+└──────────────────────────────┘
+
+Que faire ?
+1
+┌────────────────────────────┐
+│- - Gestion des plages - -  │
+│[1] Ajout de plages         │
+│[2] Suppression de plages   │
+│[3] Modification d'une plage│
+│[4] Charger des plages      │
+│[5] Sauvegarder les plages  │
+│[6] Listing des plages      │
+│- - - - - REVENIR - - - - - │
+│[r] Revenir en arrière      │
+│[a] Menu principal          │
+│- - - - - - - - - - - - - - │
+└────────────────────────────┘
+
+Que faire ?
+4
+┌────────────────────────────┐
+│- - Chargement de plages - -│
+│[1] Par objects             │
+│[2] Par textes générés      │
+│- - - - - REVENIR - - - - - │
+│[r] Revenir en arrière      │
+│[a] Menu principal          │
+│- - - - - - - - - - - - - - │
+└────────────────────────────┘
+
+Que faire ?
+2
+┌─────────────────────────────────────────┐
+│- - Chargement par log text - -          │
+│                                         │
+│... Sélectionnez un fichier à charger ...│
+└─────────────────────────────────────────┘
+
+Entrez le chemin vers un fichier
+saveState.kino
+┌────────────────────────────┐
+│- - Gestion des plages - -  │
+│[1] Ajout de plages         │
+│[2] Suppression de plages   │
+│[3] Modification d'une plage│
+│[4] Charger des plages      │
+│[5] Sauvegarder les plages  │
+│[6] Listing des plages      │
+│- - - - - REVENIR - - - - - │
+│[r] Revenir en arrière      │
+│[a] Menu principal          │
+│- - - - - - - - - - - - - - │
+└────────────────────────────┘
+
+Que faire ?
+1
+┌───────────────────────────┐
+│- - [B] Ajout de plages - -│
+│[1] Ajouter                │
+│[2] Modification des plages│
+│[3] Aperçu des plages      │
+│[4] Appliquer              │
+│- - - - - REVENIR - - - - -│
+│[r] Revenir en arrière     │
+│[a] Menu principal         │
+│- - - - - - - - - - - - - -│
+└───────────────────────────┘
+
+Que faire ?
+3
+┌──────────────────────────────────────┐
+│- - [B] Listing des plages - -        │
+│                                      │
+│Prenez le temps de vérifier vos plages│
+│                                      │
+│- - - - - REVENIR - - - - -           │
+│[r] retour au menu précédent          │
+│- - - - - - - - - - - - - -           │
+└──────────────────────────────────────┘
+
+>Tranche horaire n° (1)
+>-------------------------------------------------------------------------
+>Activité : Accueil des participants
+>Description :
+> Nous prendrons un instant pour faire les présences et donner une introduction à ce beau sport qu'est le Kidomichi
+>Qui anime : Luc Pitance
+>Temporalité ------------------------------------------------------------
+>25/4/2026 | 10:30 -> 10:45
+
+>Tranche horaire n° (2)
+>-------------------------------------------------------------------------
+>Activité : Début des activités. Nous nous armerons de bokkens et autres armes pour retracer la fine frontière entre un combat armé et àà mains nues
+>Description :
+> L'une des disciplines les plus proches du Kinomichi
+>Qui anime : Jean-Charles, Luc Pitance, Laurence Le-Carré, Andreas Rhé
+>Temporalité ------------------------------------------------------------
+>25/4/2026 | 10:50 -> 12:0
+
+>Tranche horaire n° (3)
+>-------------------------------------------------------------------------
+>Activité : Techniques de corps  corps
+>Description :
+> L'objectif de cet tranche là sera d'entrer tout doucement dans la pratique de désarmement d'un adversaire
+>Qui anime : Luc Pitance, Laurence Le-Carré, Berga, Fredéric
+>Temporalité ------------------------------------------------------------
+>25/4/2026 | 13:30 -> 15:0
+
+>Tranche horaire n° (4)
+>-------------------------------------------------------------------------
+>Activité : resto
+>Description :
+> Pour ceux le désirant, nous avons un restaurant prévu dans notre planning de stage. C'est l'occasion de briser la glace encore plus.
+>Qui anime : Luc Pitance
+>Temporalité ------------------------------------------------------------
+>25/4/2026 | 16:30 -> 22:0
+
+>Tranche horaire n° (5)
+>-------------------------------------------------------------------------
+>Activité : Totaly
+>Description :
+> spies
+>Qui anime : tom tom
+>Temporalité ------------------------------------------------------------
+>26/4/2026 | 10:15 -> 10:45
+
+>Tranche horaire n° (6)
+>-------------------------------------------------------------------------
+>Activité : Katori
+>Description :
+> L'une des disciplines les plus proches du Kinomichi
+>Qui anime : Jean-Charles
+>Temporalité ------------------------------------------------------------
+>26/4/2026 | 10:50 -> 12:0
+
+>Tranche horaire n° (7)
+>-------------------------------------------------------------------------
+>Activité : Bo jutsu
+>Description :
+> Nous auront la chance de pouvoir manier des arme longues via cet activité
+>Qui anime : Luc
+>Temporalité ------------------------------------------------------------
+>26/4/2026 | 13:15 -> 13:35
+
+Faites la touche <Enter> pour continuer

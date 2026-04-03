@@ -1,11 +1,13 @@
 package be.technifutur.kinomichi.M;
 
+import be.technifutur.kinomichicommon.V.ConsoleColors;
 import store.luniversdemm.common.DateAndTimeUtils;
 import store.luniversdemm.common.Utils;
 
 import java.io.Serializable;
 import java.time.LocalDate;
 import java.time.LocalTime;
+import java.util.concurrent.atomic.AtomicReference;
 
 
 public class TimeTable implements Serializable {
@@ -28,8 +30,31 @@ public class TimeTable implements Serializable {
         return this.activity;
     }
 
+    public void copyCat(TimeTable built) {
+        if (id != built.id)
+            throw new RuntimeException("ID mismatched");
+        this.id = built.id;
+        this.date = built.date;
+        this.end = built.end;
+        this.start = built.start;
+        this.animator = built.animator;
+        this.description = built.description;
+        this.activity = built.activity;
+    }
+
+    public TimeTable.Builder pastyCat(Builder built) {
+        built.id = this.id;
+        built.date = this.date;
+        built.end = this.end;
+        built.start = this.start;
+        built.animator = this.animator;
+        built.description = this.description;
+        built.activity = this.activity;
+        return built;
+    }
+
     public static class Builder {
-        private String activity;
+        public String activity;
         private String description;
 
         // date
@@ -59,12 +84,17 @@ public class TimeTable implements Serializable {
             return this;
         }
 
-        public Builder animator(String animator){
+        public Builder activity(String activity) {
+            this.activity = activity;
+            return this;
+        }
+
+        public Builder animator(String animator) {
             this.animator = animator;
             return this;
         }
 
-        public Builder description(String description){
+        public Builder description(String description) {
             this.description = description;
             return this;
         }
@@ -75,13 +105,13 @@ public class TimeTable implements Serializable {
         }
 
         public Builder duration(String minutesOrTime) {
-            if(this.start != null) {
+            if (this.start != null) {
                 int hoursInMinutes = DateAndTimeUtils
                         .minutesFromLocalDate(this.start) + DateAndTimeUtils
                         .minutesFromMinutesOrTime(minutesOrTime);
 
                 this.end = LocalTime.of(
-                        (hoursInMinutes / 60) %24,
+                        (hoursInMinutes / 60) % 24,
                         hoursInMinutes % 60
                 );
             }
@@ -107,9 +137,9 @@ public class TimeTable implements Serializable {
     }
 
     @Override
-    public String toString(){
+    public String toString() {
         return """
-                >Tranche horaire n° (%d)
+                >Tranche horaire n° (%s)
                 >-------------------------------------------------------------------------
                 >Activité : %s
                 >Description :
@@ -118,10 +148,10 @@ public class TimeTable implements Serializable {
                 >Temporalité ------------------------------------------------------------
                 >%s | %s -> %s
                 """.formatted(
-                        getId(),getActivity(),getDescription(),getAnimator(),
-                getDate().getDayOfMonth()+"/"+getDate().getMonthValue()+"/"+getDate().getYear(),
-                getStart().getHour()+":"+getStart().getMinute(),
-                getEnd().getHour()+":"+getEnd().getMinute());
+                ConsoleColors.BLUE + getId() + ConsoleColors.RESET, ConsoleColors.BLUE + getActivity() + ConsoleColors.RESET, ConsoleColors.BLUE + getDescription() + ConsoleColors.RESET, ConsoleColors.BLUE + getAnimator() + ConsoleColors.RESET,
+                ConsoleColors.BLUE + getDate().getDayOfMonth() + "/" + getDate().getMonthValue() + "/" + getDate().getYear() + ConsoleColors.RESET,
+                ConsoleColors.GREEN + getStart().getHour() + ":" + getStart().getMinute() + ConsoleColors.RESET,
+                ConsoleColors.RED + getEnd().getHour() + ":" + getEnd().getMinute() + ConsoleColors.RESET);
     }
 
     //region Accessors / Mutators

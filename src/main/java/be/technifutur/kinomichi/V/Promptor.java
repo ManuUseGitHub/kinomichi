@@ -1,6 +1,7 @@
 package be.technifutur.kinomichi.V;
 
 import be.technifutur.kinomichi.C.StateEngine;
+import be.technifutur.kinomichi.M.TimeTable;
 import be.technifutur.kinomichi.V.menuA.MenuA;
 import be.technifutur.kinomichi.V.menuA.MenuPreA;
 import be.technifutur.kinomichi.V.menuB.*;
@@ -42,7 +43,12 @@ public class Promptor {
             case PLAGE_LISTING_ACTIVITY -> new MenuB13();
             case PLAGE_DELETING -> new MenuB2();
             case PLAGE_EDIT -> new MenuB3();
-            case PLAGE_LISTING -> new MenuB4();
+            case PLAGE_EDIT_ACTIVITY -> new MenuB31();
+            case PLAGE_LOADING -> new MenuB4();
+            case PLAGE_LOADING_ACTIVITY_A -> new MenuB411();
+            case PLAGE_LOADING_ACTIVITY_B -> new MenuB412();
+            case PLAGE_SAVING_ACTIVITY -> null;
+            case PLAGE_LISTING -> new MenuB6();
 
             // C
             case PEOPLE_MANAGEMENT -> new MenuC();
@@ -63,5 +69,18 @@ public class Promptor {
     public static void clearWithANSICodes() {
         System.out.print("\033[H\033[2J");
         System.out.flush();
+    }
+
+    public static void displayModifyingTimeTable(TimeTable selected) {
+        System.out.println("\n- - SÉLECTIONNÉ - -");
+        System.out.println(selected);
+
+        System.out.println("\nQuelle information voulez - vous changer ?");
+        System.out.println("""
+                            Activité    [1]     Qui anime       [3]
+                            Description [2]     la temporalité  [4]
+                                               (date + début + durée)
+                            """);
+        System.out.print("\n>");
     }
 }

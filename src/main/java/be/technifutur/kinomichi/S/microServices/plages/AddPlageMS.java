@@ -1,61 +1,41 @@
-package be.technifutur.kinomichi.S;
+package be.technifutur.kinomichi.S.microServices.plages;
 
 import be.technifutur.kinomichi.M.TimeTable;
 import be.technifutur.kinomichi.M.TimeTables;
+import be.technifutur.kinomichi.S.microServices.MicroService;
 import be.technifutur.kinomichi.V.Promptor;
 import be.technifutur.kinomichicommon.C.Event;
 import be.technifutur.kinomichicommon.C.EventBus;
 import be.technifutur.kinomichicommon.C.States;
 import be.technifutur.kinomichicommon.interfaces.IEventListener;
+import be.technifutur.kinomichicommon.interfaces.MicroServiable;
 import store.luniversdemm.common.Saisir;
 
-import java.util.Scanner;
 import java.util.concurrent.atomic.AtomicReference;
 
 import static store.luniversdemm.common.Utils.onMatch;
 
-public class PlageService {
+public class AddPlageMS extends MicroService implements MicroServiable {
+    private final TimeTables tts;
 
-    private final TimeTables timeTables;
-
-    public PlageService(){
-        this.timeTables = new TimeTables();
-
-        EventBus.registerListener(("NAV:"+States.PLAGE_ADDING_ACTIVITY.getValue()), handleAddTimeTableActivity());
-        EventBus.registerListener(("NAV:"+States.PLAGE_LISTING_ACTIVITY.getValue()), handleListTimeTableActivity());
+    public AddPlageMS(TimeTables tts, String event) {
+        super(event);
+        this.tts = tts;
     }
 
-    private IEventListener handleAddTimeTableActivity() {
-        return new IEventListener() {
-            @Override
-            public void processEvent(Event event) {
-                EventBus.publishEvent("DOING:ACTIVITY",Event.createAddEvent(this));
-                Promptor.getMenu();
-                TimeTable.Builder built =  insertNewActivity();
+    public IEventListener handle() {
+        return event -> {
+            EventBus.publishEvent("DOING:ACTIVITY", Event.createAddEvent(this));
+            Promptor.getMenu();
+            TimeTable.Builder built = insertNewActivity();
 
-                insertDescription(built);
-                insertTimes(built);
-                insertFormator(built);
+            insertDescription(built);
+            insertTimes(built);
+            insertFormator(built);
 
-                timeTables.addTimeTable(built);
+            tts.addTimeTable(built);
 
-                EventBus.publishEvent("FINISH:ACTIVITY",Event.createAddEvent(this));
-            }
-        };
-    }
-
-    private IEventListener handleListTimeTableActivity() {
-        return new IEventListener() {
-            @Override
-            public void processEvent(Event event) {
-                Promptor.getMenu();
-
-                timeTables.getTimeTables().forEach(System.out::println);
-                System.out.println("Faites la touche <Enter> pour continuer");
-                Saisir.scanString();
-
-                EventBus.publishEvent("FINISH:ACTIVITY",Event.createAddEvent(this));
-            }
+            EventBus.publishEvent("FINISH:ACTIVITY", Event.createAddEvent(this));
         };
     }
 
@@ -74,7 +54,7 @@ public class PlageService {
         AtomicReference<String> duration = new AtomicReference<>("");
 
         String input = Saisir.scanString();
-        onMatch("(?<date>\\d{2}\\/\\d{2}\\/\\d{4})\\s*(?<start>\\d{2}:\\d{2})\\s*(?<duration>(?:\\d{1,2}:)?\\d+)",input,m -> {
+        onMatch("(?<date>\\d{2}\\/\\d{2}\\/\\d{4})\\s*(?<start>\\d{2}:\\d{2})\\s*(?<duration>(?:\\d{1,2}:)?\\d+)", input, m -> {
             date.set(m.group("date"));
             start.set(m.group("start"));
             duration.set(m.group("duration"));
@@ -97,4 +77,3 @@ public class PlageService {
         return new TimeTable.Builder(activite);
     }
 }
-

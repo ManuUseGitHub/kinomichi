@@ -4,9 +4,11 @@ import be.technifutur.kinomichi.M.TimeTable;
 import be.technifutur.kinomichi.M.TimeTables;
 import org.junit.jupiter.api.Test;
 
-import java.io.File;
+import java.io.*;
+import java.util.function.Consumer;
 
 import static org.junit.jupiter.api.Assertions.*;
+import static store.luniversdemm.common.Utils.onReadTextFile;
 
 class PlageVersionManagerServiceTest {
 
@@ -46,4 +48,30 @@ class PlageVersionManagerServiceTest {
         assertNotNull(tts2.getTimeTableById(1));
     }
 
+    @Test
+    void loadByTextSource() {
+        PlageVersionManagerService pvms = new PlageVersionManagerService();
+
+        onReadTextFile((textContent) -> {
+            TimeTables result = pvms.loadByTextSource(textContent);
+            TimeTable tt = result.getTimeTableById(1);
+            assertNotNull(tt);
+
+            assertEquals(4,result.getTimeTables().size());
+            assertEquals("Totaly",tt.getActivity());
+            assertEquals(1,tt.getId());
+            assertEquals("spies",tt.getDescription());
+            assertEquals("tom tom",tt.getAnimator());
+
+            assertEquals(10,tt.getDate().getDayOfMonth());
+            assertEquals(10,tt.getDate().getMonthValue());
+            assertEquals(2027,tt.getDate().getYear());
+
+            assertEquals(10,tt.getStart().getHour());
+            assertEquals(15,tt.getStart().getMinute());
+
+            assertEquals(10,tt.getStart().getHour());
+            assertEquals(45,tt.getEnd().getMinute());
+        });
+    }
 }

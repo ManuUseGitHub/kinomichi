@@ -9,9 +9,9 @@ public final class MenuB1 extends Menu implements HasMenuItems {
     public MenuB1() {
         super("[B] Ajout de plages", Arrays.stream(new String[]{
                 "Ajouter",
-                "Modification les plages",
+                "Modification des plages",
                 "Aperçu des plages",
-                "Sauvegarder"
+                "Appliquer"
         }));
     }
 }

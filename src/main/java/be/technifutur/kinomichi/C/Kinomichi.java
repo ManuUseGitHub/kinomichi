@@ -1,6 +1,7 @@
 package be.technifutur.kinomichi.C;
 
-import be.technifutur.kinomichi.S.PlageService;
+import be.technifutur.kinomichi.M.TimeTables;
+import be.technifutur.kinomichi.S.microServices.plages.*;
 import be.technifutur.kinomichi.V.Promptor;
 import be.technifutur.kinomichicommon.C.Event;
 import be.technifutur.kinomichicommon.C.EventBus;
@@ -27,7 +28,15 @@ public class Kinomichi implements Savable {
 
     public void run() {
         long data = 0;
-        new PlageService();
+        TimeTables tts = new TimeTables();
+        new StarterMS(tts,"NAV:"+ States.MAIN_MENU.getValue());
+        new AddPlageMS(tts,"NAV:" + States.PLAGE_ADDING_ACTIVITY.getValue());
+        new ListingPlageMS(tts,"NAV:" + States.PLAGE_LISTING_ACTIVITY.getValue());
+        new SavePlageMS(tts,"NAV:"+ States.PLAGE_SAVING_ACTIVITY.getValue());
+        new EditPlageMS(tts,"NAV:" + States.PLAGE_EDIT_ACTIVITY.getValue());
+        new LoadPlageMS(tts,
+                "NAV:"+ States.PLAGE_LOADING_ACTIVITY_A.getValue(),
+                "NAV:"+ States.PLAGE_LOADING_ACTIVITY_B.getValue());
 
         String current = null;
 
@@ -38,6 +47,10 @@ public class Kinomichi implements Savable {
                 stateEngine.apply(Constants.BACK_CODE);
             }
         });
+        EventBus.publishEvent(
+                "NAV:"+States.MAIN_MENU.getValue(),
+                Event.createNavEvent(this)
+        );
         while(stateEngine.getCurrentState() != null) {
             if(!this.doing){
                 // Only print AFTER state change
@@ -57,12 +70,12 @@ public class Kinomichi implements Savable {
 
             if(stateEngine.getCurrentState() != null && !current.equals(stateEngine.getCurrentState().getValue())){
                 current = stateEngine.getCurrentState().getValue();
-                if(stateEngine.getCurrentState().getValue().matches("b11|b13")){
+                if(stateEngine.getCurrentState().getValue().matches("b11|b13|b411|b412|b5|b31")){
                     doing = true;
                 }
                 EventBus.publishEvent(
                         "NAV:"+stateEngine.getCurrentState().getValue(),
-                        Event.createAddEvent(this)
+                        Event.createNavEvent(this)
                 );
             }
         }

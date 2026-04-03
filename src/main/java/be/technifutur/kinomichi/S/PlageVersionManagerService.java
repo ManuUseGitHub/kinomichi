@@ -1,8 +1,14 @@
 package be.technifutur.kinomichi.S;
 
+import be.technifutur.kinomichi.M.TimeTable;
 import be.technifutur.kinomichi.M.TimeTables;
 
 import java.io.*;
+import java.util.regex.Pattern;
+
+import static java.util.regex.Pattern.MULTILINE;
+import static store.luniversdemm.common.DateAndTimeUtils.durationBetweenTwoTimes;
+import static store.luniversdemm.common.Utils.onMatches;
 
 public class PlageVersionManagerService {
 
@@ -38,5 +44,25 @@ public class PlageVersionManagerService {
             throw new RuntimeException(e);
         }
         return object1;
+    }
+
+    public TimeTables loadByTextSource(String textContent){
+        TimeTables tts = new TimeTables();
+        onMatches(Pattern.compile(">Tranche horaire n° \\((?<id>\\d+)\\)\\n>-+\\n>Activité : (?<activity>.*)\\n>Description :\\n> (?<description>.*)\\n>Qui anime : (?<formator>.*)\\n>Temporalité -+\\n>(?<date>\\d{1,2}\\/\\d{1,2}\\/\\d{4}) \\| (?<start>\\d{1,2}:\\d{1,2}) -> (?<end>\\d{1,2}:\\d{1,2})",
+                        MULTILINE),
+                textContent,m -> {
+                    tts.addTimeTable(
+                            new TimeTable.Builder(m.group("activity"))
+                                    .description(m.group("description"))
+                                    .start(m.group("start"))
+                                    .animator(m.group("formator"))
+                                    .duration(durationBetweenTwoTimes(
+                                            m.group("end"),
+                                            m.group("start"))
+                                    )
+                                    .date(m.group("date"))
+                                    );
+                });
+        return tts;
     }
 }

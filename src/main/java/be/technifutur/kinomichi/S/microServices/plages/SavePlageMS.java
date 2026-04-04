@@ -30,7 +30,7 @@ public class SavePlageMS extends MicroService implements MicroServiable {
                 PlageVersionManagerService pvms = new PlageVersionManagerService();
                 pvms.save(tts,fileName);
 
-                EventBus.publishEvent("FINISH:ACTIVITY",Event.createAddEvent(this));
+                EventBus.publishEvent(Event.Topic.LOCK.name(), Event.createUnlockEvent(this));
             }
         };
     }

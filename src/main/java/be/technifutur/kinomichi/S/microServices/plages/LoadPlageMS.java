@@ -37,16 +37,16 @@ public class LoadPlageMS extends MicroService implements MicroServiable {
                 String fileName = Saisir.scanString();
 
                 PlageVersionManagerService pvms = new PlageVersionManagerService();
-                if(StateEngine.getInstance().getCurrentState() == States.PLAGE_LOADING_ACTIVITY_A){
+                if(StateEngine.getInstance().getCurrentState() == States.PLAGE_LOADING_A){
 
                     tts.replaceTimeTables(pvms.load(fileName));
 
-                    EventBus.publishEvent("FINISH:ACTIVITY",Event.createAddEvent(this));
+                    EventBus.publishEvent(Event.Topic.LOCK.name(), Event.createUnlockEvent(this));
                 } else{
                     onReadTextFile(text -> {
                         tts.replaceTimeTables(pvms.loadByTextSource(text));
 
-                        EventBus.publishEvent("FINISH:ACTIVITY",Event.createAddEvent(this));
+                        EventBus.publishEvent(Event.Topic.LOCK.name(), Event.createUnlockEvent(this));
                     });
                 }
             }

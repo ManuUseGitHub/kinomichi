@@ -7,10 +7,6 @@ import java.util.Arrays;
 
 public final class MenuB2 extends Menu implements HasMenuItems {
     public MenuB2() {
-        super("[B] Suppression de plages", Arrays.stream(new String[]{
-                "Choisir et supprimer",
-                "Aperçu des plages à supprimer",
-                "Sauvegarder"
-        }));
+        super("(B2) Suppression de plages", Arrays.stream(new String[]{}));
     }
 }

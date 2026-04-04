@@ -6,7 +6,6 @@ import be.technifutur.kinomichi.S.microServices.MicroService;
 import be.technifutur.kinomichi.V.Promptor;
 import be.technifutur.kinomichicommon.C.Event;
 import be.technifutur.kinomichicommon.C.EventBus;
-import be.technifutur.kinomichicommon.C.States;
 import be.technifutur.kinomichicommon.interfaces.IEventListener;
 import be.technifutur.kinomichicommon.interfaces.MicroServiable;
 import store.luniversdemm.common.Saisir;
@@ -25,7 +24,7 @@ public class AddPlageMS extends MicroService implements MicroServiable {
 
     public IEventListener handle() {
         return event -> {
-            EventBus.publishEvent("DOING:ACTIVITY", Event.createAddEvent(this));
+            EventBus.publishEvent(Event.Topic.LOCK.name(), Event.createLockEvent(this));
             Promptor.getMenu();
             TimeTable.Builder built = insertNewActivity();
 
@@ -35,7 +34,7 @@ public class AddPlageMS extends MicroService implements MicroServiable {
 
             tts.addTimeTable(built);
 
-            EventBus.publishEvent("FINISH:ACTIVITY", Event.createAddEvent(this));
+            EventBus.publishEvent(Event.Topic.LOCK.name(), Event.createUnlockEvent(this));
         };
     }
 

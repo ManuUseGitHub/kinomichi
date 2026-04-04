@@ -7,8 +7,8 @@ import java.util.Arrays;
 
 public final class MenuB4 extends Menu implements HasMenuItems {
     public MenuB4() {
-        super("Chargement de plages", Arrays.stream(new String[]{
-                "Par objects",
+        super("(B4) Chargement de plages", Arrays.stream(new String[]{
+                "Par sauvegarde",
                 "Par textes générés"
         }));
     }

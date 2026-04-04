@@ -45,10 +45,10 @@ public abstract class Menu implements HasMenuItems {
     protected String getMenuFooter() {
         return """
                 - - - - - REVENIR - - - - -
-                [r] Revenir en arrière
-                [a] Menu principal
+                [%s] Revenir en arrière
+                [%s] Menu principal
                 - - - - - - - - - - - - - -
-                """;
+                """.formatted("r","a");
     }
 
     ;

@@ -11,14 +11,16 @@ import be.technifutur.kinomichicommon.interfaces.IEventListener;
 import be.technifutur.kinomichicommon.interfaces.Savable;
 import store.luniversdemm.common.Saisir;
 
+import java.util.concurrent.atomic.AtomicInteger;
+
 public class Kinomichi implements Savable {
 
     private final StateEngine stateEngine;
     private final RequestTranslator requestTranslator;
     private boolean saved = true;
-    private boolean doing;
+    private boolean lock;
 
-    public Kinomichi(){
+    public Kinomichi() {
         this.requestTranslator = new RequestTranslator();
         stateEngine = StateEngine.getInstance();
         stateEngine.initStateEngine(States.MAIN_MENU);
@@ -27,57 +29,76 @@ public class Kinomichi implements Savable {
     }
 
     public void run() {
-        long data = 0;
+        AtomicInteger data = new AtomicInteger(0);
         TimeTables tts = new TimeTables();
-        new StarterMS(tts,"NAV:"+ States.MAIN_MENU.getValue());
-        new AddPlageMS(tts,"NAV:" + States.PLAGE_ADDING_ACTIVITY.getValue());
-        new ListingPlageMS(tts,"NAV:" + States.PLAGE_LISTING_ACTIVITY.getValue());
-        new SavePlageMS(tts,"NAV:"+ States.PLAGE_SAVING_ACTIVITY.getValue());
-        new EditPlageMS(tts,"NAV:" + States.PLAGE_EDIT_ACTIVITY.getValue());
+        new StarterMS(tts, States.MAIN_MENU.getValue());
+        new AddPlageMS(tts, States.PLAGE_ADDING.getValue());
+        new DeletePlageMS(tts, States.PLAGE_DELETING.getValue());
+        new ListingPlageMS(tts, States.PLAGE_LISTING.getValue());
+        new SavePlageMS(tts, States.PLAGE_SAVING.getValue());
+        new EditPlageMS(tts, States.PLAGE_EDIT.getValue());
         new LoadPlageMS(tts,
-                "NAV:"+ States.PLAGE_LOADING_ACTIVITY_A.getValue(),
-                "NAV:"+ States.PLAGE_LOADING_ACTIVITY_B.getValue());
+                States.PLAGE_LOADING_A.getValue(),
+                States.PLAGE_LOADING_B.getValue());
 
         String current = null;
 
-        EventBus.registerListener("FINISH:ACTIVITY", new IEventListener() {
+        EventBus.registerListener(Event.Topic.LOCK.name(), new IEventListener() {
             @Override
             public void processEvent(Event event) {
-                doing = false;
-                stateEngine.apply(Constants.BACK_CODE);
+                if (event.eventType() == Event.EventType.UNLOCK) {
+                    lock = false;
+                    stateEngine.apply(Constants.BACK_CODE);
+                } else if (event.eventType() == Event.EventType.LOCK) {
+                    lock = true;
+                }
             }
         });
         EventBus.publishEvent(
-                "NAV:"+States.MAIN_MENU.getValue(),
+                States.MAIN_MENU.getValue(),
                 Event.createNavEvent(this)
         );
-        while(stateEngine.getCurrentState() != null) {
-            if(!this.doing){
-                // Only print AFTER state change
-                Promptor.getMenu();
-                Promptor.askWhatDo();
-                data = this.requestTranslator.translate(Saisir.scanString(), this);
-                current = stateEngine.getCurrentState().getValue();
-
-                stateEngine.apply(data);
-            }else{
-                try {
-                    Thread.sleep(1000);
-                } catch (InterruptedException e) {
-                    throw new RuntimeException(e);
-                }
+        while (stateEngine.getCurrentState() != null) {
+            try {
+                current = decisionLoopLogic(current,data);
+                current = handleViewChanged(current);
+            } catch (InterruptedException e) {
+                throw new RuntimeException(e);
             }
+        }
+    }
 
-            if(stateEngine.getCurrentState() != null && !current.equals(stateEngine.getCurrentState().getValue())){
-                current = stateEngine.getCurrentState().getValue();
-                if(stateEngine.getCurrentState().getValue().matches("b11|b13|b411|b412|b5|b31")){
-                    doing = true;
-                }
-                EventBus.publishEvent(
-                        "NAV:"+stateEngine.getCurrentState().getValue(),
-                        Event.createNavEvent(this)
-                );
-            }
+    private String decisionLoopLogic(String current, AtomicInteger data) throws InterruptedException {
+        if (!this.lock) {
+            // Only print AFTER state change
+            Promptor.getMenu();
+            Promptor.askWhatDo();
+            data.set((int)this.requestTranslator.translate(Saisir.scanString(), this));
+            current = stateEngine.getCurrentState().getValue();
+
+            stateEngine.apply(data.get());
+        } else {
+            Thread.sleep(1000);
+        }
+        return current;
+    }
+
+    private String handleViewChanged(String current) throws InterruptedException {
+        if (stateEngine.getCurrentState() != null && !current.equals(stateEngine.getCurrentState().getValue())) {
+            current = stateEngine.getCurrentState().getValue();
+            lockOnActivityViews(this);
+            EventBus.publishEvent(
+                    stateEngine.getCurrentState().getValue(),
+                    Event.createNavEvent(this)
+            );
+        }
+        return current;
+    }
+
+    private void lockOnActivityViews(Kinomichi kinomichi) throws InterruptedException {
+        if (stateEngine.getCurrentState().getValue().matches("b1|b2|b3|b5|b41|b42")) {
+            EventBus.publishEvent(Event.Topic.LOCK.name(), Event.createLockEvent(kinomichi));
+            Thread.sleep(500);
         }
     }
 

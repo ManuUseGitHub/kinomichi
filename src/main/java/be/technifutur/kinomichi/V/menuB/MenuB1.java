@@ -7,11 +7,11 @@ import java.util.Arrays;
 
 public final class MenuB1 extends Menu implements HasMenuItems {
     public MenuB1() {
-        super("[B] Ajout de plages", Arrays.stream(new String[]{
-                "Ajouter",
-                "Modification des plages",
-                "Aperçu des plages",
-                "Appliquer"
-        }));
+        super("(B1) Ajout de plages", Arrays.stream(new String[]{}));
+    }
+
+    @Override
+    protected String getMenuFooter() {
+        return "Entrez les informations d'une nouvelle plage";
     }
 }

@@ -2,11 +2,17 @@ package be.technifutur.kinomichi.V;
 
 import be.technifutur.kinomichi.C.StateEngine;
 import be.technifutur.kinomichi.M.TimeTable;
+import be.technifutur.kinomichi.M.TimeTables;
 import be.technifutur.kinomichi.V.menuA.MenuA;
 import be.technifutur.kinomichi.V.menuA.MenuPreA;
 import be.technifutur.kinomichi.V.menuB.*;
 import be.technifutur.kinomichi.Version;
 import be.technifutur.kinomichicommon.V.ConsoleColors;
+import store.luniversdemm.common.Saisir;
+import store.luniversdemm.common.Utils;
+
+import java.util.ArrayList;
+import java.util.List;
 
 public class Promptor {
     private static StateEngine engine;
@@ -39,15 +45,12 @@ public class Promptor {
             // B
             case PLAGE_MANAGEMENT -> new MenuB();
             case PLAGE_ADDING -> new MenuB1();
-            case PLAGE_ADDING_ACTIVITY -> new MenuB11();
-            case PLAGE_LISTING_ACTIVITY -> new MenuB13();
             case PLAGE_DELETING -> new MenuB2();
             case PLAGE_EDIT -> new MenuB3();
-            case PLAGE_EDIT_ACTIVITY -> new MenuB31();
             case PLAGE_LOADING -> new MenuB4();
-            case PLAGE_LOADING_ACTIVITY_A -> new MenuB411();
-            case PLAGE_LOADING_ACTIVITY_B -> new MenuB412();
-            case PLAGE_SAVING_ACTIVITY -> null;
+            case PLAGE_LOADING_A -> new MenuB41();
+            case PLAGE_LOADING_B -> new MenuB42();
+            case PLAGE_SAVING -> new MenuB5();
             case PLAGE_LISTING -> new MenuB6();
 
             // C
@@ -82,5 +85,24 @@ public class Promptor {
                                                (date + début + durée)
                             """);
         System.out.print("\n>");
+    }
+
+    public static List<String> selectTimeTables(TimeTables tts, String intro){
+        Promptor.getMenu();
+
+        List<Integer> list = new ArrayList<>();
+        tts.getTimeTables().stream().peek(e -> list.add(e.getId())).forEach(System.out::println);
+        System.out.println(intro);
+
+        list.forEach(i -> System.out.print(" [" + ConsoleColors.BLUE + i + ConsoleColors.RESET + "]"));
+
+        System.out.print("\n>");
+        String ids = Saisir.scanString();
+
+        List<String> arr = new ArrayList<>();
+        Utils.onMatches("(\\d+)", ids, m -> {
+            arr.add(m.group(1));
+        });
+        return arr;
     }
 }

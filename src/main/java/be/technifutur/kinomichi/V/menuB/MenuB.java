@@ -7,7 +7,7 @@ import java.util.Arrays;
 
 public final class MenuB extends Menu implements HasMenuItems {
     public MenuB() {
-        super("Gestion des plages", Arrays.stream(new String[]{
+        super("(B) Gestion des plages", Arrays.stream(new String[]{
                 "Ajout de plages",
                 "Suppression de plages",
                 "Modification d'une plage",

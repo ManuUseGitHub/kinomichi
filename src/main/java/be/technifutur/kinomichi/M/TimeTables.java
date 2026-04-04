@@ -25,10 +25,12 @@ public class TimeTables implements Serializable {
 
     @Transient
     public TimeTable getTimeTableById(int id) {
-        return this.timeTables.stream().filter(t -> t.getId() == id).findFirst()
-                .stream()
-                .toList()
-                .getFirst();
+
+        return this.timeTables.stream().anyMatch(t -> t.getId() == id) ?
+                this.timeTables.stream().filter(t -> t.getId() == id)
+                        .findFirst()
+                        .get() :
+                null;
     }
 
     @Transient

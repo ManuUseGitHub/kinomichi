@@ -29,19 +29,6 @@ class EditPlageMSTest {
     }
 
     @Test
-    void itIsPossibleToMockTheScanner() {
-        try (MockedStatic<Saisir> utilities = Mockito.mockStatic(Saisir.class)) {
-            utilities.when(Saisir::scanString).thenReturn("1 2 3");
-
-            TimeTables tts = new TimeTables();
-            Promptor.setStateEngine(StateEngine.getInstance());
-
-            List<String> ids =  new EditPlageMS(tts, "NAV:" + States.PLAGE_EDIT_ACTIVITY.getValue()).selectTimeTables();
-            assertEquals( 3,ids.size());
-        }
-    }
-
-    @Test
     void encodingAllTheOptionsLeadtoSuccess(){
         PlageVersionManagerService pvms = new PlageVersionManagerService();
 
@@ -62,7 +49,7 @@ class EditPlageMSTest {
             TimeTables tts = result.get();
             Promptor.setStateEngine(StateEngine.getInstance());
 
-            new EditPlageMS(tts, "NAV:" + States.PLAGE_EDIT_ACTIVITY.getValue())
+            new EditPlageMS(tts, States.PLAGE_EDIT.getValue())
                     .onEditPlage(Event.createModifyEvent(this));
 
             TimeTable changed = tts.getTimeTableById(1);
@@ -99,7 +86,7 @@ class EditPlageMSTest {
             TimeTables tts = result.get();
             Promptor.setStateEngine(StateEngine.getInstance());
 
-            new EditPlageMS(tts, "NAV:" + States.PLAGE_EDIT_ACTIVITY.getValue())
+            new EditPlageMS(tts, States.PLAGE_EDIT.getValue())
                     .onEditPlage(Event.createModifyEvent(this));
 
             TimeTable changed = tts.getTimeTableById(1);

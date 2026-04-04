@@ -11,12 +11,9 @@ import be.technifutur.kinomichicommon.interfaces.IEventListener;
 import be.technifutur.kinomichicommon.interfaces.MicroServiable;
 import store.luniversdemm.common.DateAndTimeUtils;
 import store.luniversdemm.common.Saisir;
-import store.luniversdemm.common.Utils;
-
-import java.util.ArrayList;
-import java.util.List;
 import java.util.concurrent.atomic.AtomicReference;
 
+import static be.technifutur.kinomichi.V.Promptor.selectTimeTables;
 import static store.luniversdemm.common.Utils.onMatch;
 
 public class EditPlageMS extends MicroService implements MicroServiable {
@@ -30,12 +27,12 @@ public class EditPlageMS extends MicroService implements MicroServiable {
     public IEventListener handle() {
         return event -> {
             onEditPlage(event);
-            EventBus.publishEvent("FINISH:ACTIVITY", Event.createAddEvent(this));
+            EventBus.publishEvent(Event.Topic.LOCK.name(), Event.createUnlockEvent(this));
         };
     }
 
     public void onEditPlage(Event event) {
-        selectTimeTables().forEach(id -> {
+        selectTimeTables(tts,"Quelle plage voulez-vous changer? (plusieurs choix possibles)").forEach(id -> {
             TimeTable selected = tts.getTimeTableById(Integer.parseInt(id));
             if (selected != null) {
                 Promptor.getMenu();
@@ -66,26 +63,6 @@ public class EditPlageMS extends MicroService implements MicroServiable {
                 tts.changeTimeTable(built.get(), selected);
             }
         });
-    }
-
-    public List<String> selectTimeTables(){
-        EventBus.publishEvent("DOING:ACTIVITY", Event.createAddEvent(this));
-        Promptor.getMenu();
-
-        List<Integer> list = new ArrayList<>();
-        tts.getTimeTables().stream().peek(e -> list.add(e.getId())).forEach(System.out::println);
-        System.out.println("Quelle plage voulez-vous changer? (plusieurs choix possibles)");
-
-        list.forEach(i -> System.out.print(" [" + ConsoleColors.BLUE + i + ConsoleColors.RESET + "]"));
-
-        System.out.print("\n>");
-        String ids = Saisir.scanString();
-
-        List<String> arr = new ArrayList<>();
-        Utils.onMatches("(\\d+)", ids, m -> {
-            arr.add(m.group(1));
-        });
-        return arr;
     }
 
     private void insertFormator(TimeTable.Builder built, String name) {

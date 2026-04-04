@@ -1,6 +1,8 @@
 package be.technifutur.kinomichi.V;
 
 import be.technifutur.kinomichi.C.StateEngine;
+import be.technifutur.kinomichi.M.TimeTables;
+import be.technifutur.kinomichi.S.microServices.plages.EditPlageMS;
 import be.technifutur.kinomichicommon.C.States;
 import be.technifutur.kinomichicommon.Constants;
 import org.junit.jupiter.api.AfterEach;
@@ -10,6 +12,9 @@ import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.Arguments;
 import org.junit.jupiter.params.provider.MethodSource;
 import org.junit.jupiter.params.provider.ValueSource;
+import org.mockito.MockedStatic;
+import org.mockito.Mockito;
+import store.luniversdemm.common.Saisir;
 
 import java.io.ByteArrayOutputStream;
 import java.io.PrintStream;
@@ -105,6 +110,19 @@ class PromptorTest {
             Promptor.getMenu();
         });
         assertTrue(Pattern.matches(".*Menu principal.*",text.split("\n")[1]));
+    }
+
+    @Test
+    void itIsPossibleToMockTheScanner() {
+        try (MockedStatic<Saisir> utilities = Mockito.mockStatic(Saisir.class)) {
+            utilities.when(Saisir::scanString).thenReturn("1 2 3");
+
+            TimeTables tts = new TimeTables();
+            Promptor.setStateEngine(StateEngine.getInstance());
+
+            List<String> ids =  Promptor.selectTimeTables(tts,"Quelle plages");
+            assertEquals( 3,ids.size());
+        }
     }
 
     @AfterEach

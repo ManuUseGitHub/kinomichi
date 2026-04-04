@@ -7,10 +7,6 @@ import java.util.Arrays;
 
 public final class MenuB3 extends Menu implements HasMenuItems {
     public MenuB3() {
-        super("[B] Modifier des plages", Arrays.stream(new String[]{
-                "Choisir des plages et modifier",
-                "Aperçu des plages à modifier",
-                "Sauvegarder"
-        }));
+        super("(B3) Edition de plages", Arrays.stream(new String[]{}));
     }
 }

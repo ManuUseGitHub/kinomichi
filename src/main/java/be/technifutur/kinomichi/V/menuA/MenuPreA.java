@@ -7,7 +7,7 @@ import java.util.Arrays;
 
 public final class MenuPreA extends Menu implements HasMenuItems {
     public MenuPreA() {
-        super("Retour au menu principal", Arrays.stream(new String[]{
+        super("(-A) Retour au menu principal", Arrays.stream(new String[]{
                 "Oui",
                 "Non (défaut)"
         }));

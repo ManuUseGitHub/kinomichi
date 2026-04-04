@@ -7,7 +7,7 @@ import java.util.Arrays;
 
 public final class MenuB5 extends Menu implements HasMenuItems {
     public MenuB5() {
-        super("Sauvegarde de plages", Arrays.stream(new String[]{
+        super("(B5) Sauvegarde des plages", Arrays.stream(new String[]{
         }));
     }
     @Override

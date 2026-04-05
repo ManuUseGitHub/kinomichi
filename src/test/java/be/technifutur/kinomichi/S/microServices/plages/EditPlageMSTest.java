@@ -13,7 +13,6 @@ import org.mockito.MockedStatic;
 import org.mockito.Mockito;
 import store.luniversdemm.common.Saisir;
 
-import java.util.List;
 import java.util.concurrent.atomic.AtomicReference;
 
 import static be.technifutur.kinomichi.StateEngineHelper.navigateFromHome;
@@ -50,9 +49,9 @@ class EditPlageMSTest {
             Promptor.setStateEngine(StateEngine.getInstance());
 
             new EditPlageMS(tts, States.PLAGE_EDIT.getValue())
-                    .onEditPlage(Event.createModifyEvent(this));
+                    .onEditPlage(Event.createNavEvent(this));
 
-            TimeTable changed = tts.getTimeTableById(1);
+            TimeTable changed = tts.getItemById(1);
             assertEquals("Monkey D. Luffy",changed.getAnimator());
             assertEquals("This is a boat in one piece that can fly!",changed.getDescription());
             assertEquals("Thousand sunny go",changed.getActivity());
@@ -87,18 +86,18 @@ class EditPlageMSTest {
             Promptor.setStateEngine(StateEngine.getInstance());
 
             new EditPlageMS(tts, States.PLAGE_EDIT.getValue())
-                    .onEditPlage(Event.createModifyEvent(this));
+                    .onEditPlage(Event.createNavEvent(this));
 
-            TimeTable changed = tts.getTimeTableById(1);
+            TimeTable changed = tts.getItemById(1);
             assertEquals("Thousand sunny go",changed.getActivity());
 
-            TimeTable second = tts.getTimeTableById(2);
+            TimeTable second = tts.getItemById(2);
             assertEquals("This is a boat in one piece that can fly!",second.getDescription());
 
-            TimeTable third = tts.getTimeTableById(3);
+            TimeTable third = tts.getItemById(3);
             assertEquals("Monkey D. Luffy",third.getAnimator());
 
-            TimeTable fourth = tts.getTimeTableById(4);
+            TimeTable fourth = tts.getItemById(4);
             assertEquals("2027-01-01",fourth.getDate().toString());
             assertEquals("10:15",fourth.getStart().toString());
             assertEquals("11:05",fourth.getEnd().toString());

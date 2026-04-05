@@ -1,7 +1,6 @@
 package be.technifutur.kinomichi.S.microServices.plages;
 
 import be.technifutur.kinomichi.C.StateEngine;
-import be.technifutur.kinomichi.M.TimeTable;
 import be.technifutur.kinomichi.M.TimeTables;
 import be.technifutur.kinomichi.S.PlageVersionManagerService;
 import be.technifutur.kinomichi.V.Promptor;
@@ -43,10 +42,10 @@ class DeletePlageMSTest {
             Promptor.setStateEngine(StateEngine.getInstance());
 
             new DeletePlageMS(tts, States.PLAGE_DELETING.getValue())
-                    .onDeletePlage(Event.createModifyEvent(this));
+                    .onDeletePlage(Event.createNavEvent(this));
 
         }
-        assertNull(tts.getTimeTableById(1));
-        assertNull(tts.getTimeTableById(3));
+        assertNull(tts.getItemById(1));
+        assertNull(tts.getItemById(3));
     }
 }

@@ -96,7 +96,7 @@ public class Kinomichi implements Savable {
     }
 
     private void lockOnActivityViews(Kinomichi kinomichi) throws InterruptedException {
-        if (stateEngine.getCurrentState().getValue().matches("b1|b2|b3|b5|b41|b42")) {
+        if (stateEngine.getCurrentState().getValue().matches("b1|b2|b3|b5|b41|b42"+"|"+"c1|c2|c3|c5|c41|c42")) {
             EventBus.publishEvent(Event.Topic.LOCK.name(), Event.createLockEvent(kinomichi));
             Thread.sleep(500);
         }

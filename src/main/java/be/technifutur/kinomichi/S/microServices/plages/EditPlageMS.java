@@ -33,7 +33,7 @@ public class EditPlageMS extends MicroService implements MicroServiable {
 
     public void onEditPlage(Event event) {
         selectTimeTables(tts,"Quelle plage voulez-vous changer? (plusieurs choix possibles)").forEach(id -> {
-            TimeTable selected = tts.getTimeTableById(Integer.parseInt(id));
+            TimeTable selected = tts.getItemById(Integer.parseInt(id));
             if (selected != null) {
                 Promptor.getMenu();
                 Promptor.displayModifyingTimeTable(selected);
@@ -60,7 +60,7 @@ public class EditPlageMS extends MicroService implements MicroServiable {
                     }
                 });
 
-                tts.changeTimeTable(built.get(), selected);
+                tts.changeItem(built.get(), selected);
             }
         });
     }

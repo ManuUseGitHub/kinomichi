@@ -3,9 +3,9 @@ package be.technifutur.kinomichi.V;
 import be.technifutur.kinomichi.C.StateEngine;
 import be.technifutur.kinomichi.M.TimeTable;
 import be.technifutur.kinomichi.M.TimeTables;
-import be.technifutur.kinomichi.V.menuA.MenuA;
-import be.technifutur.kinomichi.V.menuA.MenuPreA;
+import be.technifutur.kinomichi.V.menuA.*;
 import be.technifutur.kinomichi.V.menuB.*;
+import be.technifutur.kinomichi.V.menuC.*;
 import be.technifutur.kinomichi.Version;
 import be.technifutur.kinomichicommon.V.ConsoleColors;
 import store.luniversdemm.common.Saisir;
@@ -55,10 +55,14 @@ public class Promptor {
 
             // C
             case PEOPLE_MANAGEMENT -> new MenuC();
-            case PEOPLE_ADDING -> null;
-            case PEOPLE_DELETING -> null;
-            case PEOPLE_EDIT -> null;
-            case PEOPLE_LISTING -> null;
+            case PEOPLE_ADDING -> new MenuC1();
+            case PEOPLE_DELETING -> new MenuC2();
+            case PEOPLE_EDIT -> new MenuC3();
+            case PEOPLE_LOADING -> new MenuC4();
+            case PEOPLE_LOADING_A -> new MenuC41();
+            case PEOPLE_LOADING_B -> new MenuC42();
+            case PEOPLE_SAVING -> new MenuC5();
+            case PEOPLE_LISTING -> new MenuC6();
 
             // D
             case ADMIN_MANAGEMENT -> new MenuD();
@@ -91,7 +95,7 @@ public class Promptor {
         Promptor.getMenu();
 
         List<Integer> list = new ArrayList<>();
-        tts.getTimeTables().stream().peek(e -> list.add(e.getId())).forEach(System.out::println);
+        tts.getItems().stream().peek(e -> list.add(e.getId())).forEach(System.out::println);
         System.out.println(intro);
 
         list.forEach(i -> System.out.print(" [" + ConsoleColors.BLUE + i + ConsoleColors.RESET + "]"));

@@ -51,7 +51,7 @@ public class PlageVersionManagerService {
         onMatches(Pattern.compile(">Tranche horaire n° \\((?<id>\\d+)\\)\\n>-+\\n>Activité : (?<activity>.*)\\n>Description :\\n> (?<description>.*)\\n>Qui anime : (?<formator>.*)\\n>Temporalité -+\\n>(?<date>\\d{1,2}\\/\\d{1,2}\\/\\d{4}) \\| (?<start>\\d{1,2}:\\d{1,2}) -> (?<end>\\d{1,2}:\\d{1,2})",
                         MULTILINE),
                 textContent,m -> {
-                    tts.addTimeTable(
+                    tts.addItem(
                             new TimeTable.Builder(m.group("activity"))
                                     .description(m.group("description"))
                                     .start(m.group("start"))

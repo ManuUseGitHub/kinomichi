@@ -1,4 +1,4 @@
-package be.technifutur.kinomichi.V.menuB;
+package be.technifutur.kinomichi.V.menuC;
 
 import be.technifutur.kinomichi.V.Menu;
 import be.technifutur.kinomichicommon.C.States;
@@ -6,9 +6,9 @@ import be.technifutur.kinomichicommon.interfaces.HasMenuItems;
 
 import java.util.Arrays;
 
-public final class MenuB42 extends Menu implements HasMenuItems {
-    public MenuB42() {
-        super(States.PLAGE_LOADING_B.getLabel(), Arrays.stream(new String[]{}));
+public final class MenuC42 extends Menu implements HasMenuItems {
+    public MenuC42() {
+        super(States.PEOPLE_LOADING_B.getLabel(), Arrays.stream(new String[]{}));
     }
 
     @Override

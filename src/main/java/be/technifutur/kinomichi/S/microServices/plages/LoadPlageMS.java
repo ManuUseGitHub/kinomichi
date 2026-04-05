@@ -39,12 +39,12 @@ public class LoadPlageMS extends MicroService implements MicroServiable {
                 PlageVersionManagerService pvms = new PlageVersionManagerService();
                 if(StateEngine.getInstance().getCurrentState() == States.PLAGE_LOADING_A){
 
-                    tts.replaceTimeTables(pvms.load(fileName));
+                    tts.replaceItems(pvms.load(fileName));
 
                     EventBus.publishEvent(Event.Topic.LOCK.name(), Event.createUnlockEvent(this));
                 } else{
                     onReadTextFile(text -> {
-                        tts.replaceTimeTables(pvms.loadByTextSource(text));
+                        tts.replaceItems(pvms.loadByTextSource(text));
 
                         EventBus.publishEvent(Event.Topic.LOCK.name(), Event.createUnlockEvent(this));
                     });

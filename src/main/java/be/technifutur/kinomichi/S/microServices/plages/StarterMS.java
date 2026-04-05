@@ -22,7 +22,7 @@ public class StarterMS extends MicroService implements MicroServiable {
                 once = true;
                 System.out.println(ConsoleColors.BLACK+ConsoleColors.BLUE_BACKGROUND+"LOADING STATE"+ConsoleColors.RESET);
                 PlageVersionManagerService pvms = new PlageVersionManagerService();
-                tts.replaceTimeTables(pvms.load("tom.ser"));
+                tts.replaceItems(pvms.load("tom.ser"));
             }
         };
     }

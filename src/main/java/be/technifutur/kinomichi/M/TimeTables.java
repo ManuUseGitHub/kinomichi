@@ -1,31 +1,34 @@
 package be.technifutur.kinomichi.M;
 
+import be.technifutur.kinomichicommon.interfaces.GroupManaging;
+
 import java.beans.Transient;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.atomic.AtomicInteger;
 
-public class TimeTables implements Serializable {
-    private List<TimeTable> timeTables;
+public class TimeTables implements GroupManaging<TimeTable, TimeTable.Builder>, Serializable {
+    private final List<TimeTable> timeTables;
 
     public TimeTables() {
         this.timeTables = new ArrayList<>();
     }
 
     @Transient
-    public void addTimeTable(TimeTable.Builder building) {
+    @Override
+    public void addItem(TimeTable.Builder building) {
         AtomicInteger lastId = new AtomicInteger();
         timeTables.stream().mapToInt(TimeTable::getId).max().ifPresent(lastId::set);
 
         timeTables.add(building
-                .setId(lastId.get()+1)
+                .id(lastId.get()+1)
                 .build());
     }
 
     @Transient
-    public TimeTable getTimeTableById(int id) {
-
+    @Override
+    public TimeTable getItemById(int id) {
         return this.timeTables.stream().anyMatch(t -> t.getId() == id) ?
                 this.timeTables.stream().filter(t -> t.getId() == id)
                         .findFirst()
@@ -34,21 +37,28 @@ public class TimeTables implements Serializable {
     }
 
     @Transient
-    public void removeTimetable(int id) {
+    @Override
+    public void removeItem(int id) {
         this.timeTables.removeIf(t -> t.getId() == id);
     }
 
-    public List<TimeTable> getTimeTables() {
+    @Transient
+    @Override
+    public List<TimeTable> getItems() {
         return this.timeTables;
     }
 
     @Transient
-    public void replaceTimeTables(TimeTables load) {
+    @Override
+    public void replaceItems(Object load) {
         this.timeTables.clear();
-        this.timeTables.addAll(load.getTimeTables());
+        this.timeTables.addAll(((TimeTables)load).getItems());
     }
 
-    public void changeTimeTable(TimeTable.Builder builder, TimeTable selected) {
-        selected.copyCat(builder.setId(selected.getId()).build());
+    @Transient
+    @Override
+    public void changeItem(TimeTable.Builder builder, TimeTable selected) {
+        selected.copyCat(builder.id(selected.getId()).build());
     }
+
 }

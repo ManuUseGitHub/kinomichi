@@ -32,7 +32,7 @@ public class AddPlageMS extends MicroService implements MicroServiable {
             insertTimes(built);
             insertFormator(built);
 
-            tts.addTimeTable(built);
+            tts.addItem(built);
 
             EventBus.publishEvent(Event.Topic.LOCK.name(), Event.createUnlockEvent(this));
         };

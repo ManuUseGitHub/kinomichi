@@ -56,6 +56,22 @@ public class StateEngine {
         };
     }
 
+    private States peopleDecisionB(long event){
+
+        return switch((int)event){
+            case 1 -> States.PEOPLE_ADDING;
+            case 2 -> States.PEOPLE_DELETING;
+            case 3 -> States.PEOPLE_EDIT;
+            case 4 -> States.PEOPLE_LOADING;
+            case 5 -> States.PEOPLE_SAVING;
+            case 6 -> States.PEOPLE_LISTING;
+
+            case Constants.GO_HOME_CODE_GRANTED,
+                 Constants.BACK_CODE -> States.MAIN_MENU;
+            default -> currentState;
+        };
+    }
+
     private States plagesDecisionActivity(long event){
         return switch((int)event){
             case Constants.BACK_CODE -> States.PLAGE_MANAGEMENT;

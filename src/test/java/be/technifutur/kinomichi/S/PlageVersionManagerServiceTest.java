@@ -5,7 +5,6 @@ import be.technifutur.kinomichi.M.TimeTables;
 import org.junit.jupiter.api.Test;
 
 import java.io.*;
-import java.util.function.Consumer;
 
 import static org.junit.jupiter.api.Assertions.*;
 import static store.luniversdemm.common.Utils.onReadTextFile;
@@ -14,7 +13,7 @@ class PlageVersionManagerServiceTest {
 
     TimeTables getPopulateddTimeTables(){
         TimeTables tts = new TimeTables();
-        tts.addTimeTable(new TimeTable.Builder("Katori")
+        tts.addItem(new TimeTable.Builder("Katori")
                 .description("Des exercices avec un bokken son prévu dans la découverte des amis du kinomichi")
                 .date("10/10/2027")
                 .start("10:15")
@@ -45,7 +44,7 @@ class PlageVersionManagerServiceTest {
         pvms.save(tts,fileName);
         TimeTables tts2 = pvms.load(fileName);
 
-        assertNotNull(tts2.getTimeTableById(1));
+        assertNotNull(tts2.getItemById(1));
     }
 
     @Test
@@ -54,10 +53,10 @@ class PlageVersionManagerServiceTest {
 
         onReadTextFile((textContent) -> {
             TimeTables result = pvms.loadByTextSource(textContent);
-            TimeTable tt = result.getTimeTableById(1);
+            TimeTable tt = result.getItemById(1);
             assertNotNull(tt);
 
-            assertEquals(4,result.getTimeTables().size());
+            assertEquals(4,result.getItems().size());
             assertEquals("Totaly",tt.getActivity());
             assertEquals(1,tt.getId());
             assertEquals("spies",tt.getDescription());

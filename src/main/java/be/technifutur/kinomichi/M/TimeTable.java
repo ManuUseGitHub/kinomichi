@@ -1,16 +1,16 @@
 package be.technifutur.kinomichi.M;
 
 import be.technifutur.kinomichicommon.V.ConsoleColors;
+import be.technifutur.kinomichicommon.interfaces.CopyCatAble;
 import store.luniversdemm.common.DateAndTimeUtils;
 import store.luniversdemm.common.Utils;
 
 import java.io.Serializable;
 import java.time.LocalDate;
 import java.time.LocalTime;
-import java.util.concurrent.atomic.AtomicReference;
 
 
-public class TimeTable implements Serializable {
+public class TimeTable implements CopyCatAble<TimeTable,TimeTable.Builder>, Serializable {
     private int id;
     private LocalDate date;
     private LocalTime start;
@@ -22,14 +22,7 @@ public class TimeTable implements Serializable {
     private TimeTable() {
     }
 
-    public String getDescription() {
-        return this.description;
-    }
-
-    public String getActivity() {
-        return this.activity;
-    }
-
+    @Override
     public void copyCat(TimeTable built) {
         if (id != built.id)
             throw new RuntimeException("ID mismatched");
@@ -42,6 +35,7 @@ public class TimeTable implements Serializable {
         this.activity = built.activity;
     }
 
+    @Override
     public TimeTable.Builder pastyCat(Builder built) {
         built.id = this.id;
         built.date = this.date;
@@ -130,7 +124,7 @@ public class TimeTable implements Serializable {
             return built;
         }
 
-        public Builder setId(int id) {
+        public Builder id(int id) {
             this.id = id;
             return this;
         }
@@ -181,6 +175,18 @@ public class TimeTable implements Serializable {
 
     public void setEnd(LocalTime end) {
         this.end = end;
+    }
+
+    public String getDescription() {
+        return description;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
+    }
+
+    public String getActivity() {
+        return activity;
     }
 
     public String getAnimator() {

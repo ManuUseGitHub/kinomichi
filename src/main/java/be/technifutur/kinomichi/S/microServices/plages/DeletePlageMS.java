@@ -8,8 +8,6 @@ import be.technifutur.kinomichicommon.C.EventBus;
 import be.technifutur.kinomichicommon.interfaces.IEventListener;
 import be.technifutur.kinomichicommon.interfaces.MicroServiable;
 
-import java.util.Comparator;
-
 import static be.technifutur.kinomichi.V.Promptor.selectTimeTables;
 
 public class DeletePlageMS extends MicroService implements MicroServiable {
@@ -32,6 +30,6 @@ public class DeletePlageMS extends MicroService implements MicroServiable {
         Promptor.getMenu();
         selectTimeTables(tts,"Quelle plage voulez-vous supprimer? (plusieurs choix possibles)")
                 .stream().map(Integer::parseInt).sorted((a, b) -> b - a)
-                .forEach(tts::removeTimetable);
+                .forEach(tts::removeItem);
     }
 }

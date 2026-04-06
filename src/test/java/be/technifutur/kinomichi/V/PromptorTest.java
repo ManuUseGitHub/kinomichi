@@ -2,7 +2,6 @@ package be.technifutur.kinomichi.V;
 
 import be.technifutur.kinomichi.C.StateEngine;
 import be.technifutur.kinomichi.M.TimeTables;
-import be.technifutur.kinomichi.S.microServices.plages.EditPlageMS;
 import be.technifutur.kinomichicommon.C.States;
 import be.technifutur.kinomichicommon.Constants;
 import org.junit.jupiter.api.AfterEach;
@@ -21,6 +20,7 @@ import java.io.PrintStream;
 import java.util.List;
 import java.util.regex.Pattern;
 
+import static be.technifutur.kinomichi.StateEngineHelper.navigateFromHome;
 import static com.github.stefanbirkner.systemlambda.SystemLambda.tapSystemOut;
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -33,7 +33,7 @@ class PromptorTest {
         return List.of(
                 Arguments.of(1,"Gestion des plages"),
                 Arguments.of(2,"Gestion des participants"),
-                Arguments.of(3,"Administration des données"),
+                Arguments.of(3,"Administration"),
                 Arguments.of(4,"Menu principal")
         );
     }
@@ -42,8 +42,9 @@ class PromptorTest {
     @BeforeEach
     public void setUp() {
         System.setOut(new PrintStream(outputStreamCaptor));
-        StateEngine engine = StateEngine.getInstance();
-        engine.initStateEngine(States.MAIN_MENU);
+        Promptor.setStateEngine(StateEngine.getInstance());
+        navigateFromHome();
+        Promptor.setCurrentMenu();
     }
 
     @Test
@@ -51,14 +52,13 @@ class PromptorTest {
 
         String text = tapSystemOut(() -> {
             StateEngine engine = StateEngine.getInstance();
-            engine.apply(Constants.GO_HOME_CODE_GRANTED); // force getting back home because of the singleton
-
             Promptor.setStateEngine(engine);
 
             engine.apply(1);
-            Promptor.getMenu();
+            Promptor.displayMenu();
         });
-        assertTrue(Pattern.matches(".*Gestion des plages.*",text.split("\n")[1]));
+        String [] lines = text.split("\n");
+        assertTrue(Pattern.matches(".*Gestion des plages.*",lines[1]));
     }
 
     @ParameterizedTest
@@ -67,13 +67,13 @@ class PromptorTest {
 
         String text = tapSystemOut(() -> {
             StateEngine engine = StateEngine.getInstance();
-            engine.apply(Constants.GO_HOME_CODE_GRANTED); // force getting back home because of the singleton
             Promptor.setStateEngine(engine);
 
             engine.apply(event);
-            Promptor.getMenu();
+            Promptor.displayMenu();
         });
-        assertTrue(Pattern.matches(".*"+menuTitle+".*",text.split("\n")[1]));
+        String [] lines = text.split("\n");
+        assertTrue(Pattern.matches(".*"+menuTitle+".*",lines[1]));
     }
 
     @ParameterizedTest
@@ -89,7 +89,7 @@ class PromptorTest {
 
             // BACK EVENT
             engine.apply(Constants.BACK_CODE);
-            Promptor.getMenu();
+            Promptor.displayMenu();
         });
         assertTrue(Pattern.matches(".*Menu principal.*",text.split("\n")[1]));
     }
@@ -107,7 +107,7 @@ class PromptorTest {
 
             // BACK EVENT
             engine.apply(Constants.GO_HOME_CODE_GRANTED);
-            Promptor.getMenu();
+            Promptor.displayMenu();
         });
         assertTrue(Pattern.matches(".*Menu principal.*",text.split("\n")[1]));
     }

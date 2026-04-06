@@ -31,7 +31,7 @@ public class LoadPlageMS extends MicroService implements MicroServiable {
         return new IEventListener() {
             @Override
             public void processEvent(Event event) {
-                Promptor.getMenu();
+                Promptor.displayMenu();
 
                 System.out.println("Entrez le chemin vers un fichier");
                 String fileName = Saisir.scanString();

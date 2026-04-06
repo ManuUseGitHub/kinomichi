@@ -8,10 +8,10 @@ import java.util.Arrays;
 
 public final class MenuPreA extends Menu implements HasMenuItems {
     public MenuPreA() {
-        super(States.PRE_MAIN_MENU.getLabel(), Arrays.stream(new String[]{
+        super(States.PRE_MAIN_MENU, null,
                 "Oui",
                 "Non (défaut)"
-        }));
+        );
     }
 
     @Override

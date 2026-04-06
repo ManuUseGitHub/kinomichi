@@ -27,7 +27,7 @@ public class DeletePlageMS extends MicroService implements MicroServiable {
     }
 
     public void onDeletePlage(Event event) {
-        Promptor.getMenu();
+        Promptor.displayMenu();
         selectTimeTables(tts,"Quelle plage voulez-vous supprimer? (plusieurs choix possibles)")
                 .stream().map(Integer::parseInt).sorted((a, b) -> b - a)
                 .forEach(tts::removeItem);

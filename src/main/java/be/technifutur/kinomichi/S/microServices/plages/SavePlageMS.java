@@ -22,7 +22,7 @@ public class SavePlageMS extends MicroService implements MicroServiable {
         return new IEventListener() {
             @Override
             public void processEvent(Event event) {
-                Promptor.getMenu();
+                Promptor.displayMenu();
 
                 System.out.println("Nommez votre nouveau fichier de sauvegarde");
                 String fileName = Saisir.scanString();

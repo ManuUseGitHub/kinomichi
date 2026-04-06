@@ -1,10 +1,12 @@
 package be.technifutur.kinomichi.C;
 
 import be.technifutur.kinomichi.SavableImpl;
+import be.technifutur.kinomichi.V.Promptor;
 import be.technifutur.kinomichicommon.C.States;
 import be.technifutur.kinomichicommon.Constants;
 import be.technifutur.kinomichicommon.interfaces.Savable;
 import org.junit.jupiter.api.AfterEach;
+import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
@@ -18,15 +20,20 @@ import static org.junit.jupiter.api.Assertions.*;
 
 class StateEngineTest {
 
+    public StateEngineTest(){
+
+    }
+
     @BeforeEach
     public void tearUp(){
+        Promptor.setStateEngine(StateEngine.getInstance());
         navigateFromHome();
+        Promptor.setCurrentMenu();
+
     }
 
     @Test
     public void theCreationOfInstanceInitiatesAState(){
-        navigateFromHome();
-
         assertEquals("a",StateEngine.getInstance().getCurrentState().getValue());
     }
 
@@ -73,7 +80,8 @@ class StateEngineTest {
     void cannotInvokeQuitEventFromOtherThanMainMenu(int entry, States state){
         StateEngine.getInstance().apply(entry);
         StateEngine.getInstance().apply(Constants.EXIT_CODE);
-        assertEquals(state.getValue(),StateEngine.getInstance().getCurrentState().getValue());
+        assertEquals(state,StateEngine.getInstance()
+                .getCurrentState());
     }
 
     @AfterEach

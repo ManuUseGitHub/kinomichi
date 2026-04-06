@@ -25,7 +25,7 @@ public class AddPlageMS extends MicroService implements MicroServiable {
     public IEventListener handle() {
         return event -> {
             EventBus.publishEvent(Event.Topic.LOCK.name(), Event.createLockEvent(this));
-            Promptor.getMenu();
+            Promptor.displayMenu();
             TimeTable.Builder built = insertNewActivity();
 
             insertDescription(built);

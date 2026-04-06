@@ -8,10 +8,10 @@ import java.util.Arrays;
 
 public final class MenuC4 extends Menu implements HasMenuItems {
     public MenuC4() {
-        super(States.PEOPLE_LOADING.getLabel(), Arrays.stream(new String[]{
+        super(States.PEOPLE_LOADING,States.PEOPLE_MANAGEMENT,
                 "Par sauvegarde",
                 "Par textes générés"
-        }));
+        );
     }
 }
 

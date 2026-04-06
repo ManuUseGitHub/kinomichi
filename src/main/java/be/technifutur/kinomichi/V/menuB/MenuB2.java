@@ -8,6 +8,6 @@ import java.util.Arrays;
 
 public final class MenuB2 extends Menu implements HasMenuItems {
     public MenuB2() {
-        super(States.PLAGE_DELETING.getLabel(), Arrays.stream(new String[]{}));
+        super(States.PLAGE_DELETING,States.PLAGE_MANAGEMENT);
     }
 }

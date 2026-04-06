@@ -8,7 +8,7 @@ import java.util.Arrays;
 
 public final class MenuC6 extends Menu implements HasMenuItems {
     public MenuC6() {
-        super(States.PEOPLE_LISTING.getLabel(), Arrays.stream(new String[]{}));
+        super(States.PEOPLE_LISTING,States.PEOPLE_MANAGEMENT);
     }
 
     @Override

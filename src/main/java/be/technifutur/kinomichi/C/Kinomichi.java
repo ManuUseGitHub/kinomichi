@@ -71,7 +71,7 @@ public class Kinomichi implements Savable {
     private String decisionLoopLogic(String current, AtomicInteger data) throws InterruptedException {
         if (!this.lock) {
             // Only print AFTER state change
-            Promptor.getMenu();
+            Promptor.displayMenu();
             Promptor.askWhatDo();
             data.set((int)this.requestTranslator.translate(Saisir.scanString(), this));
             current = stateEngine.getCurrentState().getValue();

@@ -35,7 +35,7 @@ public class EditPlageMS extends MicroService implements MicroServiable {
         selectTimeTables(tts,"Quelle plage voulez-vous changer? (plusieurs choix possibles)").forEach(id -> {
             TimeTable selected = tts.getItemById(Integer.parseInt(id));
             if (selected != null) {
-                Promptor.getMenu();
+                Promptor.displayMenu();
                 Promptor.displayModifyingTimeTable(selected);
                 String choices = Saisir.scanString();
 

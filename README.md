@@ -16,7 +16,7 @@ $ clear
 Running the executable
 ```bash
 # Java command
-$ java -jar out/Kinomichi.jar
+$ java -jar Kinomichi.jar
 ```
 
 # TO DEVELOPERS

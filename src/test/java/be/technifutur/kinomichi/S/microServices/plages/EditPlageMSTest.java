@@ -32,7 +32,7 @@ class EditPlageMSTest {
         PlageVersionManagerService pvms = new PlageVersionManagerService();
 
         AtomicReference<TimeTables> result = new AtomicReference<>(new TimeTables());
-        onReadTextFile((textContent) -> {
+        onReadTextFile("saveState.kino",(textContent) -> {
             result.set(pvms.loadByTextSource(textContent));
         });
 
@@ -66,7 +66,7 @@ class EditPlageMSTest {
         PlageVersionManagerService pvms = new PlageVersionManagerService();
 
         AtomicReference<TimeTables> result = new AtomicReference<>(new TimeTables());
-        onReadTextFile((textContent) -> {
+        onReadTextFile("saveState.kino",(textContent) -> {
             result.set(pvms.loadByTextSource(textContent));
         });
 

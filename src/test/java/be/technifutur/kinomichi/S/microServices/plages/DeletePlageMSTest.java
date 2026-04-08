@@ -29,7 +29,7 @@ class DeletePlageMSTest {
         PlageVersionManagerService pvms = new PlageVersionManagerService();
 
         AtomicReference<TimeTables> result = new AtomicReference<>(new TimeTables());
-        onReadTextFile((textContent) -> {
+        onReadTextFile("tom.ser",(textContent) -> {
             result.set(pvms.loadByTextSource(textContent));
         });
 

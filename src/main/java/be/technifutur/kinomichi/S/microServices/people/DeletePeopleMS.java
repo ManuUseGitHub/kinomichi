@@ -1,6 +1,6 @@
-package be.technifutur.kinomichi.S.microServices.plages;
+package be.technifutur.kinomichi.S.microServices.people;
 
-import be.technifutur.kinomichi.M.TimeTables;
+import be.technifutur.kinomichi.M.Participants;
 import be.technifutur.kinomichi.S.microServices.MicroService;
 import be.technifutur.kinomichi.V.Promptor;
 import be.technifutur.kinomichicommon.C.Event;
@@ -10,27 +10,27 @@ import be.technifutur.kinomichicommon.interfaces.MicroServiable;
 
 import static be.technifutur.kinomichi.V.Promptor.selectItems;
 
-public class DeletePlageMS extends MicroService implements MicroServiable {
-    private final TimeTables tts;
+public class DeletePeopleMS extends MicroService implements MicroServiable {
+    private final Participants pps;
 
-    public DeletePlageMS(TimeTables tts, String event){
+    public DeletePeopleMS(Participants tts, String event){
         super(event);
-        this.tts = tts;
+        this.pps = tts;
     }
 
     @Override
     public IEventListener handle() {
         return event -> {
-            onDeletePlage(event);
+            onDeletePeople(event);
             EventBus.publishEvent(Event.Topic.NAVIGATION.name(), Event.createBackNavEvent(this));
             EventBus.publishEvent(Event.Topic.LOCK.name(), Event.createUnlockEvent(this));
         };
     }
 
-    public void onDeletePlage(Event event) {
+    public void onDeletePeople(Event event) {
         Promptor.displayMenu();
-        selectItems(tts,"Quelle plage voulez-vous supprimer? (plusieurs choix possibles)")
+        selectItems(pps,"Quelle participants voulez-vous supprimer? (plusieurs choix possibles)")
                 .stream().map(Integer::parseInt).sorted((a, b) -> b - a)
-                .forEach(tts::removeItem);
+                .forEach(pps::removeItem);
     }
 }

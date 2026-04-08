@@ -64,9 +64,16 @@ class StateEngineTest {
 
     @Test
     public void aNonCompriseActionDoesNotChangeTheNavigation(){
-        StateEngine.getInstance().apply(Integer.MAX_VALUE);
+        StateEngine.getInstance().apply(9);
 
         assertEquals("a",StateEngine.getInstance().getCurrentState().getValue());
+    }
+
+    @Test
+    public void aNonCompriseActionJumpToDoesNotChangeTheNavigation(){
+        StateEngine.getInstance().apply(141145132);
+
+        assertNotEquals("b41",StateEngine.getInstance().getCurrentState().getValue());
     }
 
     @Test

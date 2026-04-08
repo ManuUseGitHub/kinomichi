@@ -34,6 +34,7 @@ public class AddPlageMS extends MicroService implements MicroServiable {
 
             tts.addItem(built);
 
+            EventBus.publishEvent(Event.Topic.NAVIGATION.name(), Event.createBackNavEvent(this));
             EventBus.publishEvent(Event.Topic.LOCK.name(), Event.createUnlockEvent(this));
         };
     }

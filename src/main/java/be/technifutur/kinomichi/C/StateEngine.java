@@ -4,6 +4,14 @@ import be.technifutur.kinomichi.V.Menu;
 import be.technifutur.kinomichi.V.Promptor;
 import be.technifutur.kinomichicommon.C.States;
 import be.technifutur.kinomichicommon.Constants;
+import store.luniversdemm.common.Utils;
+
+import java.util.ArrayList;
+import java.util.List;
+import java.util.concurrent.atomic.AtomicReference;
+
+import static be.technifutur.kinomichi.V.Promptor.stateToMenu;
+import static store.luniversdemm.common.Utils.hasListDuplicates;
 
 public class StateEngine {
 
@@ -28,13 +36,20 @@ public class StateEngine {
     }
 
     public void apply(long event) {
-        States nextState = this.dispatchStatesDecision(event);
-        currentState = nextState;
+        List<States> history = new ArrayList<>();
+        AtomicReference<States> tempState = new AtomicReference<>(currentState);
+        Utils.onMatches("(-\\d+|\\d)",String.valueOf(event),m -> {
+            tempState.set(this.dispatchStatesDecision(tempState.get(), Long.parseLong(m.group(1))));
+            history.add(tempState.get());
+        });
+
+        if(!hasListDuplicates(history)){
+            currentState = history.getLast();
+        }
     }
 
-
-    private States dispatchStatesDecision(long event){
-        Menu menu = Promptor.getMenu();
+    private States dispatchStatesDecision(States currentState , long event){
+        Menu menu = stateToMenu(currentState);
         States nextState = menu.getNextState(event);
         return event == Constants.EXIT_CODE && currentState == States.MAIN_MENU ? null :
                 nextState != null ? nextState :

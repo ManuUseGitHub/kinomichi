@@ -21,6 +21,7 @@ import java.util.List;
 import java.util.regex.Pattern;
 
 import static be.technifutur.kinomichi.StateEngineHelper.navigateFromHome;
+import static be.technifutur.kinomichi.V.Promptor.*;
 import static com.github.stefanbirkner.systemlambda.SystemLambda.tapSystemOut;
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -41,7 +42,7 @@ class PromptorTest {
 
     @BeforeEach
     public void setUp() {
-        System.setOut(new PrintStream(outputStreamCaptor));
+        //System.setOut(new PrintStream(outputStreamCaptor));
         Promptor.setStateEngine(StateEngine.getInstance());
         navigateFromHome();
         Promptor.setCurrentMenu();
@@ -120,9 +121,14 @@ class PromptorTest {
             TimeTables tts = new TimeTables();
             Promptor.setStateEngine(StateEngine.getInstance());
 
-            List<String> ids =  Promptor.selectTimeTables(tts,"Quelle plages");
+            List<String> ids =  Promptor.selectItems(tts,"Quelle plages");
             assertEquals( 3,ids.size());
         }
+    }
+
+    @Test
+    void itIsPossibleToGenerateThePropositionOfAnEnum(){
+        displayParticipantsTypesProposition();
     }
 
     @AfterEach

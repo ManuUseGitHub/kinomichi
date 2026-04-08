@@ -6,6 +6,7 @@ import be.technifutur.kinomichi.S.microServices.MicroService;
 import be.technifutur.kinomichi.V.Promptor;
 import be.technifutur.kinomichicommon.C.Event;
 import be.technifutur.kinomichicommon.C.EventBus;
+import be.technifutur.kinomichicommon.Constants;
 import be.technifutur.kinomichicommon.interfaces.IEventListener;
 import be.technifutur.kinomichicommon.interfaces.MicroServiable;
 import store.luniversdemm.common.Saisir;
@@ -30,6 +31,7 @@ public class SavePlageMS extends MicroService implements MicroServiable {
                 PlageVersionManagerService pvms = new PlageVersionManagerService();
                 pvms.save(tts,fileName);
 
+                EventBus.publishEvent(Event.Topic.NAVIGATION.name(), Event.createNavEvent(Constants.BACK_CODE));
                 EventBus.publishEvent(Event.Topic.LOCK.name(), Event.createUnlockEvent(this));
             }
         };

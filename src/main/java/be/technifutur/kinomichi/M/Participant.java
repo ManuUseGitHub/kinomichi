@@ -3,10 +3,11 @@ package be.technifutur.kinomichi.M;
 import be.technifutur.kinomichicommon.ParticipantType;
 import be.technifutur.kinomichicommon.V.ConsoleColors;
 import be.technifutur.kinomichicommon.interfaces.CopyCatAble;
+import be.technifutur.kinomichicommon.interfaces.HasId;
 
 import java.io.Serializable;
 
-public class Participant implements CopyCatAble<Participant,Participant.Builder>, Serializable {
+public class Participant implements HasId, CopyCatAble<Participant,Participant.Builder>, Serializable {
     private int id;
     private ParticipantType type;
     private String firstname;
@@ -24,7 +25,7 @@ public class Participant implements CopyCatAble<Participant,Participant.Builder>
                 >Participant n° (%s)
                 >-------------------------------------------------------------------------
                 >Type : %s
-                >Nom : %s | Prenom : %s
+                >Personne : %s * %s
                 >Contact -----------------------------------------------------------------
                 >Email : %s | Tel : %s
                 >Pratiquant --------------------------------------------------------------
@@ -49,6 +50,7 @@ public class Participant implements CopyCatAble<Participant,Participant.Builder>
         this.firstname = built.firstname;
         this.lastname = built.lastname;
         this.email = built.email;
+        this.telephone = built.telephone;
         this.club = built.club;
         this.grade = built.grade;
     }
@@ -56,10 +58,13 @@ public class Participant implements CopyCatAble<Participant,Participant.Builder>
     @Override
     public Builder pastyCat(Builder built) {
         built.id = this.id;
+        built.type = this.type;
         built.firstname = this.firstname;
         built.lastname = this.lastname;
         built.email = this.email;
-        built.type = this.type;
+        built.telephone = this.telephone;
+        built.club = this.club;
+        built.grade = this.grade;
         return built;
     }
 
@@ -78,44 +83,44 @@ public class Participant implements CopyCatAble<Participant,Participant.Builder>
             this.type = type;
         }
 
-        Builder firstname(String name){
+        public Builder firstname(String name){
             this.firstname = name;
             return this;
         }
 
-        Builder lastname(String name){
+        public Builder lastname(String name){
             this.lastname = name;
             return this;
         }
 
-        Builder email(String email){
+        public Builder email(String email){
             this.email = email;
             return this;
         }
 
-        Builder telephone(String telephone){
+        public Builder telephone(String telephone){
             this.telephone = telephone;
             return this;
         }
 
-        Builder type(ParticipantType type){
+        public Builder type(ParticipantType type){
             this.type = type;
             return this;
 
 
         }
 
-        Builder club(String club) {
+        public Builder club(String club) {
             this.club = club;
             return this;
         }
 
-        Builder grade(String grade) {
+        public Builder grade(String grade) {
             this.grade = grade;
             return this;
         }
 
-        Builder id(int id) {
+        public Builder id(int id) {
             this.id = id;
             return this;
         }
@@ -123,12 +128,14 @@ public class Participant implements CopyCatAble<Participant,Participant.Builder>
         Participant build(){
             Participant built = new Participant();
             built.id = this.id;
+            built.type = this.type;
             built.firstname = this.firstname;
             built.lastname = this.lastname;
             built.email = this.email;
-            built.type = this.type;
+            built.telephone = this.telephone;
             built.club = this.club;
             built.grade = this.grade;
+
             return built;
         }
     }

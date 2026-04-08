@@ -2,6 +2,7 @@ package be.technifutur.kinomichi.M;
 
 import be.technifutur.kinomichicommon.V.ConsoleColors;
 import be.technifutur.kinomichicommon.interfaces.CopyCatAble;
+import be.technifutur.kinomichicommon.interfaces.HasId;
 import store.luniversdemm.common.DateAndTimeUtils;
 import store.luniversdemm.common.Utils;
 
@@ -10,7 +11,7 @@ import java.time.LocalDate;
 import java.time.LocalTime;
 
 
-public class TimeTable implements CopyCatAble<TimeTable,TimeTable.Builder>, Serializable {
+public class TimeTable implements HasId, CopyCatAble<TimeTable,TimeTable.Builder>, Serializable {
     private int id;
     private LocalDate date;
     private LocalTime start;

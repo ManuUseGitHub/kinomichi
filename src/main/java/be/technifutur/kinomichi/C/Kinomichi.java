@@ -1,12 +1,16 @@
 package be.technifutur.kinomichi.C;
 
+import be.technifutur.kinomichi.M.Participants;
 import be.technifutur.kinomichi.M.TimeTables;
+import be.technifutur.kinomichi.S.Services;
+import be.technifutur.kinomichi.S.microServices.NavigationMS;
+import be.technifutur.kinomichi.S.microServices.people.AddPeopleMS;
+import be.technifutur.kinomichi.S.microServices.people.ListingPeopleMS;
 import be.technifutur.kinomichi.S.microServices.plages.*;
 import be.technifutur.kinomichi.V.Promptor;
 import be.technifutur.kinomichicommon.C.Event;
 import be.technifutur.kinomichicommon.C.EventBus;
 import be.technifutur.kinomichicommon.C.States;
-import be.technifutur.kinomichicommon.Constants;
 import be.technifutur.kinomichicommon.interfaces.IEventListener;
 import be.technifutur.kinomichicommon.interfaces.Savable;
 import store.luniversdemm.common.Saisir;
@@ -30,16 +34,7 @@ public class Kinomichi implements Savable {
 
     public void run() {
         AtomicInteger data = new AtomicInteger(0);
-        TimeTables tts = new TimeTables();
-        new StarterMS(tts, States.MAIN_MENU.getValue());
-        new AddPlageMS(tts, States.PLAGE_ADDING.getValue());
-        new DeletePlageMS(tts, States.PLAGE_DELETING.getValue());
-        new ListingPlageMS(tts, States.PLAGE_LISTING.getValue());
-        new SavePlageMS(tts, States.PLAGE_SAVING.getValue());
-        new EditPlageMS(tts, States.PLAGE_EDIT.getValue());
-        new LoadPlageMS(tts,
-                States.PLAGE_LOADING_A.getValue(),
-                States.PLAGE_LOADING_B.getValue());
+        Services.createServices();
 
         String current = null;
 
@@ -48,7 +43,6 @@ public class Kinomichi implements Savable {
             public void processEvent(Event event) {
                 if (event.eventType() == Event.EventType.UNLOCK) {
                     lock = false;
-                    stateEngine.apply(Constants.BACK_CODE);
                 } else if (event.eventType() == Event.EventType.LOCK) {
                     lock = true;
                 }

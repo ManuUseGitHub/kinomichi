@@ -13,7 +13,7 @@ import store.luniversdemm.common.DateAndTimeUtils;
 import store.luniversdemm.common.Saisir;
 import java.util.concurrent.atomic.AtomicReference;
 
-import static be.technifutur.kinomichi.V.Promptor.selectTimeTables;
+import static be.technifutur.kinomichi.V.Promptor.selectItems;
 import static store.luniversdemm.common.Utils.onMatch;
 
 public class EditPlageMS extends MicroService implements MicroServiable {
@@ -27,16 +27,17 @@ public class EditPlageMS extends MicroService implements MicroServiable {
     public IEventListener handle() {
         return event -> {
             onEditPlage(event);
+            EventBus.publishEvent(Event.Topic.NAVIGATION.name(), Event.createBackNavEvent(this));
             EventBus.publishEvent(Event.Topic.LOCK.name(), Event.createUnlockEvent(this));
         };
     }
 
     public void onEditPlage(Event event) {
-        selectTimeTables(tts,"Quelle plage voulez-vous changer? (plusieurs choix possibles)").forEach(id -> {
+        selectItems(tts,"Quelle plage voulez-vous changer? (plusieurs choix possibles)").forEach(id -> {
             TimeTable selected = tts.getItemById(Integer.parseInt(id));
             if (selected != null) {
                 Promptor.displayMenu();
-                Promptor.displayModifyingTimeTable(selected);
+                Promptor.displayModifyingItem(selected);
                 String choices = Saisir.scanString();
 
                 AtomicReference<TimeTable.Builder> built = new AtomicReference<>(

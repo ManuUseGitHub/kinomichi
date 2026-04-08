@@ -51,7 +51,7 @@ class PlageVersionManagerServiceTest {
     void loadByTextSource() {
         PlageVersionManagerService pvms = new PlageVersionManagerService();
 
-        onReadTextFile((textContent) -> {
+        onReadTextFile("saveState.kino",(textContent) -> {
             TimeTables result = pvms.loadByTextSource(textContent);
             TimeTable tt = result.getItemById(1);
             assertNotNull(tt);

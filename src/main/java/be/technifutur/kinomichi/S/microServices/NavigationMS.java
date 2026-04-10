@@ -14,12 +14,9 @@ public class NavigationMS extends MicroService implements MicroServiable {
 
     @Override
     public IEventListener handle() {
-        return new IEventListener() {
-            @Override
-            public void processEvent(Event event) {
-                if (event.eventType() == Event.EventType.BACK_NAVIGATE) {
-                    StateEngine.getInstance().apply(Constants.BACK_CODE);
-                }
+        return event -> {
+            if (event.eventType() == Event.EventType.BACK_NAVIGATE) {
+                StateEngine.getInstance().apply(Constants.BACK_CODE);
             }
         };
     }

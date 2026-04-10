@@ -3,12 +3,16 @@ package be.technifutur.kinomichi.M;
 import be.technifutur.kinomichicommon.interfaces.GroupManaging;
 
 import java.beans.Transient;
+import java.io.Serial;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.atomic.AtomicInteger;
 
 public class TimeTables implements GroupManaging<TimeTable, TimeTable.Builder>, Serializable {
+    @Serial
+    private static final long serialVersionUID = 1L;
+
     private final List<TimeTable> timeTables;
 
     public TimeTables() {

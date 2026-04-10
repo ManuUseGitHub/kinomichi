@@ -8,6 +8,7 @@ import be.technifutur.kinomichicommon.C.EventBus;
 import be.technifutur.kinomichicommon.interfaces.IEventListener;
 import be.technifutur.kinomichicommon.interfaces.MicroServiable;
 
+import static be.technifutur.kinomichi.S.NavigatorUtils.getBackOnSuccess;
 import static be.technifutur.kinomichi.V.Promptor.selectItems;
 
 public class DeletePlageMS extends MicroService implements MicroServiable {
@@ -22,8 +23,7 @@ public class DeletePlageMS extends MicroService implements MicroServiable {
     public IEventListener handle() {
         return event -> {
             onDeletePlage(event);
-            EventBus.publishEvent(Event.Topic.NAVIGATION.name(), Event.createBackNavEvent(this));
-            EventBus.publishEvent(Event.Topic.LOCK.name(), Event.createUnlockEvent(this));
+            getBackOnSuccess(this);
         };
     }
 

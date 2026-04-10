@@ -12,6 +12,7 @@ import store.luniversdemm.common.Saisir;
 
 import java.util.concurrent.atomic.AtomicReference;
 
+import static be.technifutur.kinomichi.S.NavigatorUtils.getBackOnSuccess;
 import static store.luniversdemm.common.Utils.onMatch;
 
 public class AddPlageMS extends MicroService implements MicroServiable {
@@ -34,8 +35,7 @@ public class AddPlageMS extends MicroService implements MicroServiable {
 
             tts.addItem(built);
 
-            EventBus.publishEvent(Event.Topic.NAVIGATION.name(), Event.createBackNavEvent(this));
-            EventBus.publishEvent(Event.Topic.LOCK.name(), Event.createUnlockEvent(this));
+            getBackOnSuccess(this);
         };
     }
 

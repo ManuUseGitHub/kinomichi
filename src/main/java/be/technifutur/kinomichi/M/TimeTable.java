@@ -6,12 +6,16 @@ import be.technifutur.kinomichicommon.interfaces.HasId;
 import store.luniversdemm.common.DateAndTimeUtils;
 import store.luniversdemm.common.Utils;
 
+import java.io.Serial;
 import java.io.Serializable;
 import java.time.LocalDate;
 import java.time.LocalTime;
 
 
 public class TimeTable implements HasId, CopyCatAble<TimeTable,TimeTable.Builder>, Serializable {
+    @Serial
+    private static final long serialVersionUID = 1L;
+
     private int id;
     private LocalDate date;
     private LocalTime start;

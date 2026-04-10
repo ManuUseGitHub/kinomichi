@@ -29,7 +29,7 @@ class PlageVersionManagerServiceTest {
         String fileName = "file.ser";
 
         PlageVersionManagerService pvms = new PlageVersionManagerService();
-        pvms.save(tts,fileName);
+        pvms.save(tts,fileName,(s)->{});
 
         assertTrue(new File(fileName).exists());
     }
@@ -41,8 +41,8 @@ class PlageVersionManagerServiceTest {
 
         PlageVersionManagerService pvms = new PlageVersionManagerService();
 
-        pvms.save(tts,fileName);
-        TimeTables tts2 = pvms.load(fileName);
+        pvms.save(tts,fileName,(s)->{});
+        TimeTables tts2 = pvms.load(fileName,(s)->{});
 
         assertNotNull(tts2.getItemById(1));
     }
@@ -52,7 +52,7 @@ class PlageVersionManagerServiceTest {
         PlageVersionManagerService pvms = new PlageVersionManagerService();
 
         onReadTextFile("saveState.kino",(textContent) -> {
-            TimeTables result = pvms.loadByTextSource(textContent);
+            TimeTables result = pvms.loadByTextSource(textContent,(s)->{});
             TimeTable tt = result.getItemById(1);
             assertNotNull(tt);
 

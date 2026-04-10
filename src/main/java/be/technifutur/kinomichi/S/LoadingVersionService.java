@@ -11,10 +11,12 @@ public class LoadingVersionService {
         if (StateEngine.getInstance().getCurrentState() == States.PLAGE_LOADING_A ||
                 StateEngine.getInstance().getCurrentState() == States.PEOPLE_LOADING_A) {
 
-            groupManaging.replaceItems(managerService.load(fileName));
+            groupManaging.replaceItems(managerService.load(fileName,(sucess) -> {
+            }));
         } else {
             onReadTextFile(fileName, text -> {
-                groupManaging.replaceItems(managerService.loadByTextSource(text));
+                groupManaging.replaceItems(managerService.loadByTextSource(text,(sucess) -> {
+                }));
             });
         }
     }

@@ -6,6 +6,7 @@ import be.technifutur.kinomichicommon.ParticipantType;
 import be.technifutur.kinomichicommon.interfaces.VersionLoadable;
 import be.technifutur.kinomichicommon.interfaces.VersionSavable;
 
+import java.util.function.Consumer;
 import java.util.regex.Pattern;
 
 import static java.util.regex.Pattern.MULTILINE;
@@ -16,7 +17,7 @@ public class ParticipantVersionManagerService
         implements VersionSavable<Participants>, VersionLoadable<Participants> {
 
     @Override
-    public Participants loadByTextSource(String textContent) {
+    public Participants loadByTextSource(String textContent, Consumer<Boolean> cbComplete) {
         Participants tts = new Participants();
         onMatches(Pattern.compile(">Participant n° \\((?<id>\\d+)\\)\\n>-+\\n>Type : (?<type>.*)\\n>Personne : (?<firstname>.+) \\* (?<lastname>.+)\\n>Contact -+\\n>Email : (?<email>[^\\s]+) \\| Tel : (?<telephone>.+)\\n>Pratiquant -+\\n>Club et grade : (?<club>.+) / (?<grade>.+)",
                         MULTILINE),
@@ -33,6 +34,11 @@ public class ParticipantVersionManagerService
                                     ).id(id)
                     );
                 });
+        cbComplete.accept(true);
         return tts;
+    }
+
+    public Participants loadByTextSource(String textContent){
+        return loadByTextSource(textContent,ignore -> {});
     }
 }

@@ -5,9 +5,13 @@ import be.technifutur.kinomichicommon.V.ConsoleColors;
 import be.technifutur.kinomichicommon.interfaces.CopyCatAble;
 import be.technifutur.kinomichicommon.interfaces.HasId;
 
+import java.io.Serial;
 import java.io.Serializable;
 
 public class Participant implements HasId, CopyCatAble<Participant,Participant.Builder>, Serializable {
+    @Serial
+    private static final long serialVersionUID = 1L;
+
     private int id;
     private ParticipantType type;
     private String firstname;

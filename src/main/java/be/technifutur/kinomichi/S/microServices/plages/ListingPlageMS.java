@@ -9,10 +9,12 @@ import be.technifutur.kinomichicommon.interfaces.IEventListener;
 import be.technifutur.kinomichicommon.interfaces.MicroServiable;
 import store.luniversdemm.common.Saisir;
 
+import static be.technifutur.kinomichi.S.NavigatorUtils.getBackOnSuccess;
+
 public class ListingPlageMS extends MicroService implements MicroServiable {
     private final TimeTables tts;
 
-    public ListingPlageMS(TimeTables tts,String event) {
+    public ListingPlageMS(TimeTables tts, String event) {
         super(event);
         this.tts = tts;
     }
@@ -20,15 +22,11 @@ public class ListingPlageMS extends MicroService implements MicroServiable {
 
     @Override
     public IEventListener handle() {
-        return new IEventListener() {
-            @Override
-            public void processEvent(Event event) {
-                tts.getItems().forEach(System.out::println);
-                System.out.println("Faites la touche <Enter> pour continuer");
+        return event -> {
+            tts.getItems().forEach(System.out::println);
+            System.out.println("Faites la touche <Enter> pour continuer");
 
-                EventBus.publishEvent(Event.Topic.NAVIGATION.name(), Event.createBackNavEvent(this));
-                EventBus.publishEvent(Event.Topic.LOCK.name(), Event.createUnlockEvent(this));
-            }
+            getBackOnSuccess(this);
         };
     }
 }

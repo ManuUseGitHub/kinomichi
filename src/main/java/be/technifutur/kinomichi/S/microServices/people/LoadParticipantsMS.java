@@ -11,6 +11,7 @@ import be.technifutur.kinomichicommon.interfaces.MicroServiable;
 import store.luniversdemm.common.Saisir;
 
 import static be.technifutur.kinomichi.S.LoadingVersionService.processLoading;
+import static be.technifutur.kinomichi.S.NavigatorUtils.getBackOnSuccess;
 
 public class LoadParticipantsMS extends MicroService implements MicroServiable {
     private final Participants pps;
@@ -40,7 +41,6 @@ public class LoadParticipantsMS extends MicroService implements MicroServiable {
             processLoading(pps, pvms, fileName);
         }
 
-        EventBus.publishEvent(Event.Topic.NAVIGATION.name(), Event.createBackNavEvent(this));
-        EventBus.publishEvent(Event.Topic.LOCK.name(), Event.createUnlockEvent(this));
+        getBackOnSuccess(this);
     }
 }

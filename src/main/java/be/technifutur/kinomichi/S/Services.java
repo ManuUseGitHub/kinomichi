@@ -6,6 +6,7 @@ import be.technifutur.kinomichi.S.microServices.NavigationMS;
 import be.technifutur.kinomichi.S.microServices.people.AddPeopleMS;
 import be.technifutur.kinomichi.S.microServices.people.ListingPeopleMS;
 import be.technifutur.kinomichi.S.microServices.people.LoadParticipantsMS;
+import be.technifutur.kinomichi.S.microServices.people.SavePeopleMS;
 import be.technifutur.kinomichi.S.microServices.plages.*;
 import be.technifutur.kinomichicommon.C.Event;
 import be.technifutur.kinomichicommon.C.States;
@@ -24,6 +25,7 @@ public class Services {
         new EditPlageMS(tts, States.PLAGE_EDIT.getValue());
 
         new AddPeopleMS(pps, States.PEOPLE_ADDING.getValue());
+        new SavePeopleMS(pps,States.PEOPLE_SAVING.getValue());
         new ListingPeopleMS(pps, States.PEOPLE_LISTING.getValue());
 
         new LoadPlageMS(tts,

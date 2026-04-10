@@ -5,6 +5,7 @@ import be.technifutur.kinomichi.M.TimeTables;
 import be.technifutur.kinomichicommon.interfaces.VersionLoadable;
 import be.technifutur.kinomichicommon.interfaces.VersionSavable;
 
+import java.util.function.Consumer;
 import java.util.regex.Pattern;
 
 import static java.util.regex.Pattern.MULTILINE;
@@ -16,7 +17,7 @@ public class PlageVersionManagerService
         implements VersionSavable<TimeTables>, VersionLoadable<TimeTables> {
 
     @Override
-    public TimeTables loadByTextSource(String textContent) {
+    public TimeTables loadByTextSource(String textContent, Consumer<Boolean> cbComplete) {
         TimeTables tts = new TimeTables();
         onMatches(Pattern.compile(">Tranche horaire n° \\((?<id>\\d+)\\)\\n>-+\\n>Activité : (?<activity>.*)\\n>Description :\\n> (?<description>.*)\\n>Qui anime : (?<formator>.*)\\n>Temporalité -+\\n>(?<date>\\d{1,2}\\/\\d{1,2}\\/\\d{4}) \\| (?<start>\\d{1,2}:\\d{1,2}) -> (?<end>\\d{1,2}:\\d{1,2})",
                         MULTILINE),
@@ -33,6 +34,11 @@ public class PlageVersionManagerService
                                     .date(m.group("date"))
                     );
                 });
+        cbComplete.accept(true);
         return tts;
+    }
+
+    public TimeTables loadByTextSource(String textContent) {
+        return loadByTextSource(textContent,ignore->{});
     }
 }

@@ -2,6 +2,7 @@ package be.technifutur.kinomichi.S.microServices.people;
 
 import be.technifutur.kinomichi.M.Participant;
 import be.technifutur.kinomichi.M.Participants;
+import be.technifutur.kinomichi.S.NavigatorUtils;
 import be.technifutur.kinomichi.S.microServices.MicroService;
 import be.technifutur.kinomichi.V.Promptor;
 import be.technifutur.kinomichicommon.C.Event;
@@ -37,8 +38,7 @@ public class AddPeopleMS extends MicroService implements MicroServiable {
             pps.addItem(built);
         }
 
-        EventBus.publishEvent(Event.Topic.NAVIGATION.name(), Event.createBackNavEvent(this));
-        EventBus.publishEvent(Event.Topic.LOCK.name(), Event.createUnlockEvent(this));
+        NavigatorUtils.getBackOnSuccess(this);
     }
 
     private void insertClubAndGrade(Participant.Builder built) {

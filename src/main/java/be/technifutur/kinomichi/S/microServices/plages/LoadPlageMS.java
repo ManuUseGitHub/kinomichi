@@ -11,6 +11,7 @@ import be.technifutur.kinomichicommon.interfaces.MicroServiable;
 import store.luniversdemm.common.Saisir;
 
 import static be.technifutur.kinomichi.S.LoadingVersionService.processLoading;
+import static be.technifutur.kinomichi.S.NavigatorUtils.getBackOnSuccess;
 
 public class LoadPlageMS extends MicroService implements MicroServiable {
     private final TimeTables tts;
@@ -23,21 +24,17 @@ public class LoadPlageMS extends MicroService implements MicroServiable {
     }
 
     public IEventListener handle() {
-        return new IEventListener() {
-            @Override
-            public void processEvent(Event event) {
-                Promptor.displayMenu();
+        return event -> {
+            Promptor.displayMenu();
 
-                System.out.print("Entrez le chemin vers un fichier");
-                System.out.println(" (laissez vide pour annuler...) ");
-                String fileName = Saisir.scanString();
+            System.out.print("Entrez le chemin vers un fichier");
+            System.out.println(" (laissez vide pour annuler...) ");
+            String fileName = Saisir.scanString();
 
-                if (!fileName.isEmpty()) {
-                    processLoading(tts, pvms, fileName);
-                }
-                EventBus.publishEvent(Event.Topic.NAVIGATION.name(), Event.createBackNavEvent(this));
-                EventBus.publishEvent(Event.Topic.LOCK.name(), Event.createUnlockEvent(this));
+            if (!fileName.isEmpty()) {
+                processLoading(tts, pvms, fileName);
             }
+            getBackOnSuccess(this);
         };
     }
 }

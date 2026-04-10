@@ -27,7 +27,7 @@ class EditPeopleMSTest {
 
         AtomicReference<Participants> result = new AtomicReference<>(new Participants());
         onReadTextFile("people.kino",(textContent) -> {
-            result.set(pvms.loadByTextSource(textContent));
+            result.set(pvms.loadByTextSource(textContent,(s)->{}));
         });
 
         try (MockedStatic<Saisir> utilities = Mockito.mockStatic(Saisir.class)) {

@@ -7,6 +7,8 @@ import be.technifutur.kinomichicommon.C.EventBus;
 import be.technifutur.kinomichicommon.interfaces.IEventListener;
 import be.technifutur.kinomichicommon.interfaces.MicroServiable;
 
+import static be.technifutur.kinomichi.S.NavigatorUtils.getBackOnSuccess;
+
 public class ListingPeopleMS extends MicroService implements MicroServiable {
     private final Participants pps;
 
@@ -23,8 +25,7 @@ public class ListingPeopleMS extends MicroService implements MicroServiable {
                 pps.getItems().forEach(System.out::println);
                 System.out.println("Faites la touche <Enter> pour continuer");
 
-                EventBus.publishEvent(Event.Topic.NAVIGATION.name(), Event.createBackNavEvent(this));
-                EventBus.publishEvent(Event.Topic.LOCK.name(), Event.createUnlockEvent(this));
+                getBackOnSuccess(this);
             }
         };
     }

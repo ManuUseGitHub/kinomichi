@@ -21,6 +21,7 @@ public class Kinomichi implements Savable {
 
     private final StateEngine stateEngine;
     private final RequestTranslator requestTranslator;
+    private final String ACTIVITIES_CODE_VIEWS;
     private boolean saved = true;
     private boolean lock;
 
@@ -30,6 +31,11 @@ public class Kinomichi implements Savable {
         stateEngine.initStateEngine(States.MAIN_MENU);
 
         Promptor.setStateEngine(this.stateEngine);
+
+        ACTIVITIES_CODE_VIEWS = String.join("|",
+                "b1|b2|b3|b41|b42|b5",
+                "c1|c2|c3|c41|c42|c5"
+        );
     }
 
     public void run() {
@@ -90,7 +96,7 @@ public class Kinomichi implements Savable {
     }
 
     private void lockOnActivityViews(Kinomichi kinomichi) throws InterruptedException {
-        if (stateEngine.getCurrentState().getValue().matches("b1|b2|b3|b5|b41|b42"+"|"+"c1|c2|c3|c5|c41|c42")) {
+        if (stateEngine.getCurrentState().getValue().matches(ACTIVITIES_CODE_VIEWS)) {
             EventBus.publishEvent(Event.Topic.LOCK.name(), Event.createLockEvent(kinomichi));
             Thread.sleep(500);
         }
